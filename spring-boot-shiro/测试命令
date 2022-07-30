@@ -1,4 +1,4 @@
-curl -X POST http://192.168.2.39:8080/login --header "Content-Type: multipart/form-data" -F username=yangyi -F password=yangyi126
+curl -X POST http://192.168.0.111:8080/system/user/login --header "Content-Type: multipart/form-data" -F username=yangyi -F password=yangyi126
 curl -X GET http://192.168.2.39:8080/login --header "Content-Type: multipart/form-data" -F username=yangyi -F password=yangyi126
 curl -X POST http://192.168.2.39:8080/info --header "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDE5Njc4MTEsImlhdCI6MTY0MTk2NzgxMSwidXNlcm5hbWUiOiJ5YW5neWkifQ.w_GAo1hy_1LlJgDd_2HH_3jEEa9HMUYpvq-6bco9Fw8"
 

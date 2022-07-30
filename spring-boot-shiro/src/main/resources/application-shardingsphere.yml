@@ -1,0 +1,55 @@
+spring:
+  redis:
+    port: 6379
+    host: 192.168.137.20
+    database: 1
+    password: yangyi126
+  shardingsphere:
+    datasource:
+      names: write-ds,read-ds
+      write-ds:
+        jdbcUrl: jdbc:mysql://192.168.137.20:33068/spring_boot_sample?allowPublicKeyRetrieval=true
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: yangyi126
+      read-ds:
+        jdbcUrl: jdbc:mysql://192.168.137.20:33068/spring_boot_sample?allowPublicKeyRetrieval=true
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: yangyi126
+    mode:
+      type: Memory
+    rules:
+      readwrite-splitting:
+        data-sources:
+          random:
+            type: Static
+            load-balancer-name: round_robin
+            props:
+              write-data-source-name: write-ds           # 写数据源
+              read-data-source-names: read-ds            # 读数据源
+        load-balancers:
+          round_robin:
+            type: ROUND_ROBIN                          # 负载均衡算法
+    props:
+      sql-show: true                                   # 打印SQL
+
+
+
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: org.yangyi.project.domain
+  config-location: classpath:mybatis/mybatis-config.xml
+
+logging:
+  config: classpath:log4j2.xml
+  level:
+    { com.bosideng.wecom.api: debug,
+      com.bosideng.advert.api.feignUtils: debug }
+
+ignore:
+  paths:
+    - '/error'
+    - '/favicon.ico'

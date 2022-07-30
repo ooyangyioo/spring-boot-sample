@@ -25,14 +25,3 @@ ignore:
   paths:
     - '/error'
     - '/favicon.ico'
-    - '/swagger-ui/**'
-    - '/static/**'
-    - '/v2/**'
-    - '/webjars/**'
-    - '/swagger-resources/**'
-
-springfox:
-  documentation:
-    swagger-ui:
-      enabled: true
-    enabled: true
