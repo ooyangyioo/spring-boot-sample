@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yangyi.project.dao.ShiroPermissionDao">
+
+    <resultMap id="BaseResultMap" type="org.yangyi.project.entity.ShiroPermission">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="request_url" jdbcType="VARCHAR" property="requestUrl"/>
+        <result column="permission_code" jdbcType="VARCHAR" property="permissionCode"/>
+        <result column="permission_desc" jdbcType="VARCHAR" property="permissionDesc"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        , request_url, permission_code, permission_desc
+    </sql>
+
+    <select id="selectPermission" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shiro_permission
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectPermissions" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shiro_permission
+    </select>
+
+    <delete id="deletePermission" parameterType="java.lang.Long">
+        delete
+        from shiro_permission
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insertPermission" parameterType="org.yangyi.project.entity.ShiroPermission">
+        insert into shiro_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="requestUrl != null">
+                request_url,
+            </if>
+            <if test="permissionCode != null">
+                permission_code,
+            </if>
+            <if test="permissionDesc != null">
+                permission_desc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="requestUrl != null">
+                #{requestUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionCode != null">
+                #{permissionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionDesc != null">
+                #{permissionDesc,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updatePermission" parameterType="org.yangyi.project.entity.ShiroPermission">
+        update shiro_permission
+        <set>
+            <if test="requestUrl != null">
+                request_url = #{requestUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionCode != null">
+                permission_code = #{permissionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionDesc != null">
+                permission_desc = #{permissionDesc,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+</mapper>

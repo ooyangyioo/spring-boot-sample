@@ -1,0 +1,16 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      cookie:
+        http-only: false
+spring:
+  application:
+    name: @project.artifactId@
+  main:
+    banner-mode: off
+  profiles:
+    active: dev
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher

@@ -1,0 +1,64 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.137.20:33068/spring_boot_sample
+    username: root
+    password: yangyi126
+  redis:
+    host: 192.168.137.20
+    port: 6379
+    password: yangyi126
+    database: 2
+    timeout: 10000
+    connect-timeout: 10000
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+  session:
+    store-type: redis
+    timeout: 30m
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    mode: HTML
+    servlet:
+      content-type: text/html
+
+server:
+  port: 8080
+  error:
+    path: /error
+  servlet:
+    session:
+      timeout: 1800
+
+mybatis:
+  mapper-locations: classpath*:/mapper/*.xml
+  type-aliases-package: org.yangyi.project.entity
+  config-location: classpath:mybatis-config.xml
+
+logging:
+  config: classpath:log4j2.xml
+  level:
+    { org.yangyi.project.dao: trace, com.bosideng.advert.api.feignUtils: debug }
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+    enabled: true
+
+ignore:
+  paths:
+    - '/error'
+    - '/favicon.ico'
+    - '/swagger-ui/**'
+    - '/static/**'
+    - '/v2/**'
+    - '/swagger-resources/**'
+    - '/user/signup'

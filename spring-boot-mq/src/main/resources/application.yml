@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: @project.artifactId@
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: yangyi
+    password: yangyi126
+    virtual-host: /
+    # 开启发送确认
+    publisher-confirms: true
+    # 开启发送失败退回
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+        retry:
+          max-attempts: 3
+          enabled: true
+          initial-interval: 5000
+        default-requeue-rejected: false
+server:
+  port: 8078

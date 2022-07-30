@@ -1,0 +1,29 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: @project.artifactId@
+  main:
+    banner-mode: off
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring_boot_sample
+    username: root
+    password: yangyi126
+
+mybatis:
+  mapper-locations: classpath*:/mapper/*.xml
+  type-aliases-package: org.yangyi.project.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  config: classpath:log4j2.xml
+  level:
+    { com.bosideng.wecom.api: debug, com.bosideng.advert.api.feignUtils: debug }
+
+ignore:
+  paths:
+    - '/error'
+    - '/favicon.ico'
+    - '/user/register'

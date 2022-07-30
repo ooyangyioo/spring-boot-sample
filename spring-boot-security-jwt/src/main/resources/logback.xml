@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 日志文件位置 -->
+    <property name="logPath" value="C:/Users/YangYi/logs"/>
+    <!-- 日志最大的历史天 -->
+    <property name="maxHistory" value="15"/>
+    <property name="maxFileSize" value="100MB"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 自定义pattern -->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level]-&#45;&#45;[%25thread] %-60logger{45} : [%4L]%msg%n</pattern>-->
+            <!-- 使用defaults.xml中定义的pattern -->
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logPath}/info.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 过滤器，只记录ERROR级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  <!-- 按天回滚 -->
+            <fileNamePattern>${logPath}/%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${maxFileSize}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>${maxHistory}</maxHistory>  <!-- 日志最大的历史天 -->
+        </rollingPolicy>
+    </appender>
+
+    <!--<logger name="org.springframework" level="WARN" additivity="false"/>-->
+    <!--<logger name="org.apache" level="WARN" additivity="false"/>-->
+    <!--<logger name="org.hibernate" level="WARN" additivity="false"/>-->
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE_OUT"/>
+    </root>
+
+</configuration>

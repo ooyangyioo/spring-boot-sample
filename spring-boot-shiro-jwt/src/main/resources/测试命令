@@ -1,0 +1,8 @@
+curl -X POST http://192.168.2.39:8080/user/login --header "Content-Type: multipart/form-data" -F username=yangyi -F password=123456
+curl -X GET http://192.168.2.39:8080/user/login --header "Content-Type: multipart/form-data" -F username=yangyi -F password=123456
+curl -X POST http://192.168.2.39:8080/info --header "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDE5Njc4MTEsImlhdCI6MTY0MTk2NzgxMSwidXNlcm5hbWUiOiJ5YW5neWkifQ.w_GAo1hy_1LlJgDd_2HH_3jEEa9HMUYpvq-6bco9Fw8"
+
+curl -X GET http://192.168.2.39:8080/user/info --header "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDI0NzY5NDAsImlhdCI6MTY0MjQ3Njk0MCwidXNlcm5hbWUiOiJ5YW5neWkifQ.Lu9nDkq__b4UtBX7YyYnBMi29J3yQnnCKl173A2iXjU"
+
+curl -X GET http://192.168.2.39:8080/role/add?roleCode=Admin --header "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDI0NzY5NDAsImlhdCI6MTY0MjQ3Njk0MCwidXNlcm5hbWUiOiJ5YW5neWkifQ.Lu9nDkq__b4UtBX7YyYnBMi29J3yQnnCKl173A2iXjU"
+curl -X GET http://192.168.2.39:8080/permission/list --header "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDI0NzY5NDAsImlhdCI6MTY0MjQ3Njk0MCwidXNlcm5hbWUiOiJ5YW5neWkifQ.Lu9nDkq__b4UtBX7YyYnBMi29J3yQnnCKl173A2iXjU"

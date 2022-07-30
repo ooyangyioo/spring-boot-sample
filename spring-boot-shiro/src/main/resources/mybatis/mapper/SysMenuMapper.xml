@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yangyi.project.mapper.SysMenuMapper">
+
+    <resultMap id="SysMenuResultMap" type="org.yangyi.project.domain.SysMenu">
+        <id column="menu_id" jdbcType="BIGINT" property="menuId"/>
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName"/>
+        <result column="menu_sort" jdbcType="INTEGER" property="menuSort"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <result column="route_path" jdbcType="VARCHAR" property="routePath"/>
+        <result column="component_path" jdbcType="VARCHAR" property="componentPath"/>
+        <result column="menu_type" jdbcType="CHAR" property="menuType"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="permission" jdbcType="VARCHAR" property="permission"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="SysMenuTreeResultMap" type="org.yangyi.project.domain.SysMenuTree" extends="SysMenuResultMap">
+        <association property="children" column="{menuId=menu_id}"
+                     select="org.yangyi.project.mapper.SysMenuMapper.selectTreeByParentId"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        menu_id
+        , menu_name, menu_sort, parent_id, route_path, component_path, menu_type,
+    status, permission, icon, remark, create_by, create_time, update_by, update_time
+    </sql>
+
+    <select id="selectTreeByParentId" resultMap="SysMenuTreeResultMap">
+        select *
+        from sys_menu
+        where parent_id = #{menuId,jdbcType=BIGINT}
+        order by menu_sort
+    </select>
+
+    <insert id="insert" parameterType="org.yangyi.project.domain.SysMenu">
+        insert into sys_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="menuId != null">
+                menu_id,
+            </if>
+            <if test="menuName != null">
+                menu_name,
+            </if>
+            <if test="menuSort != null">
+                menu_sort,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="routePath != null">
+                route_path,
+            </if>
+            <if test="componentPath != null">
+                component_path,
+            </if>
+            <if test="menuType != null">
+                menu_type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="permission != null">
+                permission,
+            </if>
+            <if test="icon != null">
+                icon,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="menuId != null">
+                #{menuId,jdbcType=BIGINT},
+            </if>
+            <if test="menuName != null">
+                #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="menuSort != null">
+                #{menuSort,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="routePath != null">
+                #{routePath,jdbcType=VARCHAR},
+            </if>
+            <if test="componentPath != null">
+                #{componentPath,jdbcType=VARCHAR},
+            </if>
+            <if test="menuType != null">
+                #{menuType,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="permission != null">
+                #{permission,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="org.yangyi.project.domain.SysMenu">
+        update sys_menu
+        <set>
+            <if test="menuName != null">
+                menu_name = #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="menuSort != null">
+                menu_sort = #{menuSort,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="routePath != null">
+                route_path = #{routePath,jdbcType=VARCHAR},
+            </if>
+            <if test="componentPath != null">
+                component_path = #{componentPath,jdbcType=VARCHAR},
+            </if>
+            <if test="menuType != null">
+                menu_type = #{menuType,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="permission != null">
+                permission = #{permission,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where menu_id = #{menuId,jdbcType=BIGINT}
+    </update>
+
+</mapper>

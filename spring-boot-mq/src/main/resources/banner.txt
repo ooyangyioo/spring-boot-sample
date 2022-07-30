@@ -1,0 +1,8 @@
+${AnsiColor.MAGENTA}
+ _  _   __    _  _  ___    _  _  ____
+( \/ ) /__\  ( \( )/ __)  ( \/ )(_  _)
+ \  / /(__)\  )  (( (_-.   \  /  _)(_
+ (__)(__)(__)(_)\_)\___/   (__) (____)
+${AnsiColor.GREEN}Application Version: ${application.version}${application.formatted-version}
+${AnsiColor.GREEN}Spring Boot Version: ${spring-boot.version}${spring-boot.formatted-version}
+${AnsiColor.DEFAULT}

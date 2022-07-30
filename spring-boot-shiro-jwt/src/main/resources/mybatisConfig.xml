@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <setting name="callSettersOnNulls" value="true"/>   <!-- 表中存储的null值存入Map -->
+    </settings>
+
+    <!--<typeAliases>-->
+    <!--<package name="com.yangyi.project.bean"/>-->
+    <!--</typeAliases>-->
+
+    <!--    <mappers>-->
+    <!--        <mapper url="file:///${project.basedir}/xml/AgentMapper.xml"/>  &lt;!&ndash; 加载JAR包外部的MAPPER XML文件 &ndash;&gt;-->
+    <!--        <mapper url="file:///${project.basedir}/xml/IndustryMapper.xml"/>-->
+    <!--    </mappers>-->
+
+</configuration>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yangyi.project.dao.SysUserDao">
+
+    <resultMap id="SysUserResultMap" type="org.yangyi.project.entity.SysUser">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="enabled" jdbcType="BIT" property="enabled"/>
+        <result column="expired" jdbcType="BIT" property="expired"/>
+        <result column="locked" jdbcType="BIT" property="locked"/>
+        <result column="password_expired" jdbcType="BIT" property="passwordExpired"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <resultMap id="SysUserRoleResultMap" type="org.yangyi.project.entity.SysUserRole" extends="SysUserResultMap">
+        <collection property="sysRoles" column="{userId = id}" ofType="org.yangyi.project.entity.SysRole"
+                    javaType="ArrayList" select="org.yangyi.project.dao.SysRoleDao.selectUserRole"/>
+    </resultMap>
+
+    <sql id="SysUserColumnList">
+        id
+        , username, password, email, phone, enabled, expired, locked, password_expired,
+    create_time
+    </sql>
+
+    <!-- 根据用户主键查询用户基本信息 -->
+    <select id="selectById" resultMap="SysUserResultMap">
+        select
+        <include refid="SysUserColumnList"/>
+        from sys_user
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据用户名查询用户基础信息 -->
+    <select id="selectByUsername" resultMap="SysUserResultMap">
+        select
+        <include refid="SysUserColumnList"/>
+        from sys_user
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 查询用户及其角色 -->
+    <select id="selectUserAndRoleByUsername" resultMap="SysUserRoleResultMap">
+        select
+        <include refid="SysUserColumnList"/>
+        from sys_user
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from sys_user
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insertSelective" parameterType="org.yangyi.project.entity.SysUser">
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="enabled != null">
+                enabled,
+            </if>
+            <if test="expired != null">
+                expired,
+            </if>
+            <if test="locked != null">
+                locked,
+            </if>
+            <if test="passwordExpired != null">
+                password_expired,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="enabled != null">
+                #{enabled,jdbcType=BIT},
+            </if>
+            <if test="expired != null">
+                #{expired,jdbcType=BIT},
+            </if>
+            <if test="locked != null">
+                #{locked,jdbcType=BIT},
+            </if>
+            <if test="passwordExpired != null">
+                #{passwordExpired,jdbcType=BIT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="org.yangyi.project.entity.SysUser">
+        update sys_user
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="enabled != null">
+                enabled = #{enabled,jdbcType=BIT},
+            </if>
+            <if test="expired != null">
+                expired = #{expired,jdbcType=BIT},
+            </if>
+            <if test="locked != null">
+                locked = #{locked,jdbcType=BIT},
+            </if>
+            <if test="passwordExpired != null">
+                password_expired = #{passwordExpired,jdbcType=BIT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+</mapper>
