@@ -39,7 +39,6 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
             retryCount = new AtomicInteger(0);
 
         if (retryCount.incrementAndGet() > 3) {
-            sysUserMapper.userLockStatus(username, 1);
             throw new LockedAccountException("用户被锁定！");
         }
 

@@ -63,7 +63,7 @@
         <!--            <columnOverride column="promotion_type" property="promotionType" javaType="java.lang.Integer"/>-->
         <!--        </table>-->
 
-        <table tableName="sys_menu" domainObjectName="SysMenu" enableCountByExample="false"
+        <table tableName="sys_user" domainObjectName="SysUser" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
             <property name="useActualColumnNames" value="false"/>

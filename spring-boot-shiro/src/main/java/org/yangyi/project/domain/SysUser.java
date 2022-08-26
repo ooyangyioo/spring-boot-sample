@@ -12,15 +12,11 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SysUser implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     @JsonSerialize(using = ToStringSerializer.class)
     @AutoId
     private Long userId;
 
-    private String userName;
-
-    private String nickName;
+    private String username;
 
     private String email;
 
@@ -30,19 +26,13 @@ public class SysUser implements Serializable {
 
     private String avatar;
 
-    private String passwd;
+    private String password;
 
     private String salt;
 
-    private Integer accountLocked;
+    private Integer status;
 
-    private Integer accountEnabled;
-
-    private Integer passwordExpired;
-
-    private Integer deleted;
-
-    private String remark;
+    private Integer delFlag;
 
     private String createBy;
 
@@ -54,6 +44,10 @@ public class SysUser implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
+    private String remark;
+
+    private static final long serialVersionUID = 1L;
+
     public Long getUserId() {
         return userId;
     }
@@ -62,20 +56,12 @@ public class SysUser implements Serializable {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName == null ? null : nickName.trim();
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
     public String getEmail() {
@@ -110,12 +96,12 @@ public class SysUser implements Serializable {
         this.avatar = avatar == null ? null : avatar.trim();
     }
 
-    public String getPasswd() {
-        return passwd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswd(String passwd) {
-        this.passwd = passwd == null ? null : passwd.trim();
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public String getSalt() {
@@ -126,44 +112,20 @@ public class SysUser implements Serializable {
         this.salt = salt == null ? null : salt.trim();
     }
 
-    public Integer getAccountLocked() {
-        return accountLocked;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setAccountLocked(Integer accountLocked) {
-        this.accountLocked = accountLocked;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public Integer getAccountEnabled() {
-        return accountEnabled;
+    public Integer getDelFlag() {
+        return delFlag;
     }
 
-    public void setAccountEnabled(Integer accountEnabled) {
-        this.accountEnabled = accountEnabled;
-    }
-
-    public Integer getPasswordExpired() {
-        return passwordExpired;
-    }
-
-    public void setPasswordExpired(Integer passwordExpired) {
-        this.passwordExpired = passwordExpired;
-    }
-
-    public Integer getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Integer deleted) {
-        this.deleted = deleted;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
     }
 
     public String getCreateBy() {
@@ -198,4 +160,11 @@ public class SysUser implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
+    }
 }

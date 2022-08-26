@@ -12,6 +12,12 @@ public interface ISysUserService {
      */
     String doSignup(String username, String password);
 
+    /**
+     * 用户登录
+     *
+     * @param username 用户名
+     * @param password 密码
+     */
     SysUser doLogin(String username, String password);
 
 }

@@ -38,14 +38,14 @@ public class SysUserServiceImpl implements ISysUserService {
         //  String encryptedPassword = new SimpleHash(Md5Hash.ALGORITHM_NAME, password, ByteSource.Util.bytes(salt), 1024).toBase64();
         //  SHA-256
         String encryptedPassword = new SimpleHash(Sha256Hash.ALGORITHM_NAME, password, ByteSource.Util.bytes(salt), 1024).toBase64();
+
         SysUser sysUser = new SysUser();
-        sysUser.setUserName(username);
-        sysUser.setNickName(username);
-        sysUser.setPasswd(encryptedPassword);
-        sysUser.setCreateTime(new Date());
+        sysUser.setUsername(username);
+        sysUser.setEmail("876359827@qq.com");
+        sysUser.setPhone("15527443932");
+        sysUser.setPassword(encryptedPassword);
         sysUser.setSalt(salt);
-        sysUser.setPhone("15527443931");
-        sysUser.setEmail("876359828@qq.com");
+        sysUser.setCreateTime(new Date());
         sysUserMapper.insert(sysUser);
         return String.valueOf(sysUser.getUserId());
     }

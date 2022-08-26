@@ -1,8 +1,6 @@
 package org.yangyi.project.shiro;
 
-import com.mysql.cj.exceptions.PasswordExpiredException;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.StringUtils;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;

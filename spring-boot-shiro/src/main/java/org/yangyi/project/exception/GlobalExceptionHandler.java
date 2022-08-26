@@ -3,6 +3,7 @@ package org.yangyi.project.exception;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -122,5 +123,13 @@ public class GlobalExceptionHandler {
             LOGGER.error("参数丢失：{}", exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseVO.failed("参数丢失错误！"));
     }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity dataIntegrityViolationException(DataIntegrityViolationException exception) {
+        if (LOGGER.isWarnEnabled())
+            LOGGER.error("执行SQL异常：{}", exception.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResponseVO.failed("服务器处理错误！"));
+    }
+
 
 }

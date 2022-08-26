@@ -17,7 +17,7 @@ import org.yangyi.project.vo.ResponseVO;
 import javax.validation.constraints.NotBlank;
 
 @RestController
-@RequestMapping("/system/user")
+@RequestMapping("/sys/user")
 @Validated
 public class SysUserController {
 
@@ -35,7 +35,7 @@ public class SysUserController {
     }
 
     @GetMapping(value = {"/info"})
-    @RequiresPermissions(value = {"system:user:info"})
+    @RequiresPermissions(value = {"sys:user:info"})
     public ResponseEntity<ResponseVO<SysUser>> doInfo() {
         Subject subject = SecurityUtils.getSubject();
         SysUser sysUser = (SysUser) subject.getPrincipal();

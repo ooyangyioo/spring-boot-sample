@@ -208,7 +208,6 @@
                     <dockerHost></dockerHost>
                     <certPath></certPath>
                     <registry></registry>
-
                     <images>
                         <image>
                             <name>${project.artifactId}</name>

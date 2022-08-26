@@ -32,7 +32,7 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
-    private static final String LOGIN_URL = "/system/user/login";
+    private static final String LOGIN_URL = "/sys/user/login";
 
     private IgnorePathConfig ignorePathConfig;
 
@@ -54,12 +54,11 @@ public class ShiroConfig {
         filterFactoryBean.setLoginUrl(LOGIN_URL);
 
         Map<String, Filter> filters = filterFactoryBean.getFilters();
+
         ShiroAuthenticationFilter shiroAuthenticationFilter = new ShiroAuthenticationFilter();  //  自定义登录
         shiroAuthenticationFilter.setRememberMeParam(REMEMBER_ME_PARAM);
         shiroAuthenticationFilter.setUsernameParam(USERNAME_PARAM);
         shiroAuthenticationFilter.setPasswordParam(PASSWORD_PARAM);
-
-        ShiroLogoutFilter shiroLogoutFilter = new ShiroLogoutFilter();  //  自定义登出
 
         ShiroUserFilter shiroUserFilter = new ShiroUserFilter();    //  自定义rememberMe过滤器
 
@@ -68,7 +67,7 @@ public class ShiroConfig {
         kickoutSessionFilter.setCacheManager(redisCacheManager());
 
         filters.put("auth", shiroAuthenticationFilter);
-        filters.put("logout", shiroLogoutFilter);
+        filters.put("logout", new ShiroLogoutFilter()); //  自定义登出
         filters.put("user", shiroUserFilter);
         filters.put("kickout", kickoutSessionFilter);
 
@@ -80,10 +79,11 @@ public class ShiroConfig {
     @Bean
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager webSecurityManager = new DefaultWebSecurityManager();
+        //  设置Realm
         webSecurityManager.setRealm(shiroRealm());
-        //  webSecurityManager.setCacheManager(ehCacheManager()); //  使用EhCache作为缓存
-        webSecurityManager.setCacheManager(redisCacheManager()); //  使用Redis作为缓存
-        webSecurityManager.setRememberMeManager(rememberMeManager());
+        //  webSecurityManager.setCacheManager(ehCacheManager()); //  使用EhCache作为缓存管理器
+        webSecurityManager.setCacheManager(redisCacheManager()); //  使用Redis作为缓存管理器
+        webSecurityManager.setRememberMeManager(rememberMeManager());   //  记住我
         webSecurityManager.setSessionManager(sessionManager()); //  配置自定义session管理，使用Redis
         return webSecurityManager;
     }
@@ -115,7 +115,7 @@ public class ShiroConfig {
     public CacheManager redisCacheManager() {
         RedisCacheManager redisCacheManager = new RedisCacheManager();
         redisCacheManager.setRedisManager(redisManager());
-        redisCacheManager.setPrincipalIdFieldName("userName");  //  针对不同用户缓存
+        redisCacheManager.setPrincipalIdFieldName("username");  //  针对不同用户缓存
         redisCacheManager.setExpire(3600);    //  用户权限信息缓存时间
         return redisCacheManager;
     }
@@ -206,11 +206,11 @@ public class ShiroConfig {
          * 直接在登录过滤器中处理，不需要在controller中定义登录处理
          * kickout限制登陆人数，该过滤器一定要在第一个
          */
-        chainDefinition.addPathDefinition("/system/user/login", "kickout,auth");
+        chainDefinition.addPathDefinition("/sys/user/login", "kickout,auth");
         //  不需要权限可以访问，需要在controller中定义登录处理，需要修改登录过滤器为 ShiroAuthenticationFilterWithController
         //  chainDefinition.addPathDefinition("/user/login", "anon");
-        chainDefinition.addPathDefinition("/system/user/logout", "logout");
-        chainDefinition.addPathDefinition("/system/user/signup", "anon");
+        chainDefinition.addPathDefinition("/sys/user/logout", "logout");
+        chainDefinition.addPathDefinition("/sys/user/signup", "anon");
         chainDefinition.addPathDefinition("/kaptcha/create", "anon");
         chainDefinition.addPathDefinition("/kaptcha/check", "anon");
         //  permissive 即使不登录，因为isPermissive返回true，还是会让请求继续下去。

@@ -50,7 +50,7 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SysUser user = (SysUser) principalCollection.getPrimaryPrincipal();
-        LOGGER.info("用户：{} 的授权认证", user.getUserName());
+        LOGGER.info("用户：{} 的授权认证", user.getUsername());
         List<String> roles = new ArrayList<>();
         List<String> permissions = new ArrayList<>();
         List<SysRole> sysRoles = sysRoleMapper.selectUserRoles(user.getUserId());
@@ -80,13 +80,13 @@ public class ShiroRealm extends AuthorizingRealm {
         SysUser user = sysUserMapper.selectByUsername(username);
         if (Objects.isNull(user))
             throw new UnknownAccountException("用户不存在！");
-        if (1 == user.getAccountLocked())
-            throw new LockedAccountException("用户被锁定！");
-        if (1 == user.getAccountEnabled())
-            throw new DisabledAccountException("账户被停用！");
-        if (1 == user.getPasswordExpired())
-            throw new ExpiredCredentialsException("密码已过期！");
-        return new SimpleAuthenticationInfo(user, user.getPasswd(), new ShiroByteSource(user.getSalt()), getName());
+//        if (1 == user.getAccountLocked())
+//            throw new LockedAccountException("用户被锁定！");
+//        if (1 == user.getAccountEnabled())
+//            throw new DisabledAccountException("账户被停用！");
+//        if (1 == user.getPasswordExpired())
+//            throw new ExpiredCredentialsException("密码已过期！");
+        return new SimpleAuthenticationInfo(user, user.getPassword(), new ShiroByteSource(user.getSalt()), getName());
     }
 
     /**

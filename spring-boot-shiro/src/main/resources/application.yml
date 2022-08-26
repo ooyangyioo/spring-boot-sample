@@ -10,4 +10,4 @@ spring:
   main:
     banner-mode: off
   profiles:
-    active: shardingsphere
+    active: dev
