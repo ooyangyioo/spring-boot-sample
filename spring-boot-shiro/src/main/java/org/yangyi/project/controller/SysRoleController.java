@@ -28,9 +28,24 @@ public class SysRoleController {
         return ResponseEntity.ok(ResponseVO.success(sysRoleService.list()));
     }
 
+    @GetMapping(value = {"/info"})
+    public ResponseEntity info() {
+        return ResponseEntity.ok(null);
+    }
+
     @GetMapping("/add")
     public ResponseEntity add() {
         return ResponseEntity.ok(ResponseVO.success(sysRoleService.add()));
+    }
+
+    @GetMapping(value = {"/edit"})
+    public ResponseEntity edit() {
+        return ResponseEntity.ok(null);
+    }
+
+    @GetMapping(value = {"/remove"})
+    public ResponseEntity remove() {
+        return ResponseEntity.ok(null);
     }
 
 }

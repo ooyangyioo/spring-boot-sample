@@ -29,7 +29,7 @@ public class SysUserController {
         this.sysUserService = sysUserService;
     }
 
-    @GetMapping(value = "/signup")
+    @GetMapping(value = "/add")
     public ResponseEntity<String> doSignup(@NotBlank(message = "用户名不能为空") @RequestParam(required = false) String username,
                                            @NotBlank(message = "密码不能为空") @RequestParam(required = false) String password) {
         return ResponseEntity.ok(sysUserService.doSignup(username, password));
@@ -42,6 +42,16 @@ public class SysUserController {
         Subject subject = SecurityUtils.getSubject();
         SysUser sysUser = (SysUser) subject.getPrincipal();
         return ResponseEntity.ok(ResponseVO.success(sysUser));
+    }
+
+    @GetMapping("/edit")
+    public ResponseEntity doEdit() {
+        return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("/remove")
+    public ResponseEntity doDelete() {
+        return ResponseEntity.ok(null);
     }
 
 //    @RequestMapping("/deletePermission")
