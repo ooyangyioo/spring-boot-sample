@@ -26,7 +26,7 @@ public class SysRole implements Serializable {
 
     private Integer status;
 
-    private Integer deleted;
+    private Integer delFlag;
 
     private String remark;
 
@@ -80,12 +80,12 @@ public class SysRole implements Serializable {
         this.status = status;
     }
 
-    public Integer getDeleted() {
-        return deleted;
+    public Integer getDelFlag() {
+        return delFlag;
     }
 
-    public void setDeleted(Integer deleted) {
-        this.deleted = deleted;
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
     }
 
     public String getRemark() {

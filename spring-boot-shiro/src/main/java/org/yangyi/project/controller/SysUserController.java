@@ -2,6 +2,7 @@ package org.yangyi.project.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,8 @@ public class SysUserController {
     }
 
     @GetMapping(value = {"/info"})
-    @RequiresPermissions(value = {"sys:user:info"})
+//    @RequiresPermissions(value = {"sys:user:info"})
+    @RequiresRoles(value = {"Admin"})
     public ResponseEntity<ResponseVO<SysUser>> doInfo() {
         Subject subject = SecurityUtils.getSubject();
         SysUser sysUser = (SysUser) subject.getPrincipal();

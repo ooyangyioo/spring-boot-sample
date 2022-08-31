@@ -11,7 +11,7 @@ import org.yangyi.project.service.ISysRoleService;
 import org.yangyi.project.vo.ResponseVO;
 
 @RestController
-@RequestMapping("/system/role")
+@RequestMapping("/sys/role")
 @Validated
 public class SysRoleController {
 

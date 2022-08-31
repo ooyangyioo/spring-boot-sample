@@ -41,8 +41,8 @@ public class SysUserServiceImpl implements ISysUserService {
 
         SysUser sysUser = new SysUser();
         sysUser.setUsername(username);
-        sysUser.setEmail("876359827@qq.com");
-        sysUser.setPhone("15527443932");
+        sysUser.setEmail("87654321@gmail.com");
+        sysUser.setPhone("15522222222");
         sysUser.setPassword(encryptedPassword);
         sysUser.setSalt(salt);
         sysUser.setCreateTime(new Date());

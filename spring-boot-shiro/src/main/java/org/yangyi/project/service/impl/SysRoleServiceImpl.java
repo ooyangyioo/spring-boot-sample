@@ -27,8 +27,8 @@ public class SysRoleServiceImpl implements ISysRoleService {
     @Override
     public Boolean add() {
         SysRole sysRole = new SysRole();
-        sysRole.setRoleName("用户");
-        sysRole.setRoleKey("USER");
+        sysRole.setRoleName("管理员");
+        sysRole.setRoleKey("Admin");
         sysRole.setCreateTime(new Date());
         int result = sysRoleMapper.insert(sysRole);
         return result == 0 ? Boolean.FALSE : Boolean.TRUE;
