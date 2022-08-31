@@ -1,6 +1,7 @@
 package org.yangyi.project.controller;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,7 +15,7 @@ import org.yangyi.project.vo.ResponseVO;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/system/menu")
+@RequestMapping("/sys/menu")
 @Validated
 public class SysMenuController {
 
@@ -26,16 +27,14 @@ public class SysMenuController {
     }
 
     @GetMapping(value = {"/list"})
-    @RequiresPermissions(value = {"system:menu:list"})
+    @RequiresPermissions(value = {"sys:menu:list"})
     @TestAnnotation(clazz = Map.class)
     public ResponseEntity list(Map<String, String> data) {
-
-        System.err.println(data);
-
         return ResponseEntity.ok(ResponseVO.success(sysMenuService.list()));
     }
 
     @GetMapping(value = {"/add"})
+    @RequiresRoles(value = {"Admin"})
     public ResponseEntity add() {
         return ResponseEntity.ok(ResponseVO.success(sysMenuService.add()));
     }

@@ -20,10 +20,10 @@ public class SysMenu implements Serializable {
 
     private String menuName;
 
-    private Integer menuSort;
-
     @JsonSerialize(using = ToStringSerializer.class)
     private Long parentId;
+
+    private Integer menuSort;
 
     private String routePath;
 
@@ -31,7 +31,7 @@ public class SysMenu implements Serializable {
 
     private String menuType;
 
-    private String status;
+    private Integer status;
 
     private String permission;
 
@@ -105,12 +105,12 @@ public class SysMenu implements Serializable {
         this.menuType = menuType == null ? null : menuType.trim();
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getPermission() {

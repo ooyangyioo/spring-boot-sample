@@ -10,7 +10,7 @@
         <result column="route_path" jdbcType="VARCHAR" property="routePath"/>
         <result column="component_path" jdbcType="VARCHAR" property="componentPath"/>
         <result column="menu_type" jdbcType="CHAR" property="menuType"/>
-        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="permission" jdbcType="VARCHAR" property="permission"/>
         <result column="icon" jdbcType="VARCHAR" property="icon"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
@@ -24,7 +24,6 @@
         <association property="children" column="{menuId=menu_id}"
                      select="org.yangyi.project.mapper.SysMenuMapper.selectTreeByParentId"/>
     </resultMap>
-
 
     <sql id="Base_Column_List">
         menu_id
@@ -111,7 +110,7 @@
                 #{menuType,jdbcType=CHAR},
             </if>
             <if test="status != null">
-                #{status,jdbcType=CHAR},
+                #{status,jdbcType=INTEGER},
             </if>
             <if test="permission != null">
                 #{permission,jdbcType=VARCHAR},
@@ -159,7 +158,7 @@
                 menu_type = #{menuType,jdbcType=CHAR},
             </if>
             <if test="status != null">
-                status = #{status,jdbcType=CHAR},
+                status = #{status,jdbcType=INTEGER},
             </if>
             <if test="permission != null">
                 permission = #{permission,jdbcType=VARCHAR},
