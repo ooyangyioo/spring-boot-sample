@@ -36,8 +36,8 @@ public class SysUserController {
     }
 
     @GetMapping(value = {"/info"})
-//    @RequiresPermissions(value = {"sys:user:info"})
-    @RequiresRoles(value = {"Admin"})
+    @RequiresPermissions(value = {"sys:user:info"})
+//    @RequiresRoles(value = {"Admin"})
     public ResponseEntity<ResponseVO<SysUser>> doInfo() {
         Subject subject = SecurityUtils.getSubject();
         SysUser sysUser = (SysUser) subject.getPrincipal();

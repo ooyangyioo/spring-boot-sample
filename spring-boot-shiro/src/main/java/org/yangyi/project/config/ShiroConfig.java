@@ -22,9 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.yangyi.project.shiro.*;
 
 import javax.servlet.Filter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -41,6 +43,9 @@ public class ShiroConfig {
     private static final String REMEMBER_ME_PARAM = "remember";
     public static final String AUTHENTICATION_CACHE_NAME = "authentication";
     public static final String AUTHORIZATION_CACHE_NAME = "authorization";
+
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
 
     @Autowired
     public void setIgnorePathConfig(IgnorePathConfig ignorePathConfig) {
@@ -108,7 +113,7 @@ public class ShiroConfig {
      */
     public CacheManager ehCacheManager() {
         EhCacheManager cacheManager = new EhCacheManager();
-        cacheManager.setCacheManagerConfigFile("classpath:ehcache.xml");
+        cacheManager.setCacheManagerConfigFile("classpath:shiro-ehcache.xml");
         return cacheManager;
     }
 
@@ -132,6 +137,11 @@ public class ShiroConfig {
 
     @Bean
     public RedisManager redisManager() {
+
+        redisConnectionFactory.getConnection().set("test".getBytes(), "HelloWorld".getBytes());
+        byte[] data = redisConnectionFactory.getConnection().get("test".getBytes());
+        System.err.println(new String(data));
+
         return new RedisManager();
     }
 
@@ -169,7 +179,6 @@ public class ShiroConfig {
         sessionManager.setSessionValidationSchedulerEnabled(true);  //  是否开启定时调度器进行检测过期session 默认为 true
         //设置session失效的扫描时间, 清理用户直接关闭浏览器造成的孤立会话 默认为 1个小时
         //设置该属性 就不需要设置 ExecutorServiceSessionValidationScheduler 底层也是默认自动调用ExecutorServiceSessionValidationScheduler
-//        sessionManager.setSessionValidationInterval(1800000);
         sessionManager.setSessionValidationInterval(60000);
         sessionManager.setSessionIdUrlRewritingEnabled(false);  //  取消url 后面的sessionId
 

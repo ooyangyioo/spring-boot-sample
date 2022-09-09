@@ -1,40 +1,31 @@
 package org.yangyi.project.shiro.serializer;
 
-import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.SerializationException;
+import org.apache.shiro.io.SerializationException;
+import org.apache.shiro.io.Serializer;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
-public class StringSerializer implements RedisSerializer<String> {
+public class StringSerializer implements Serializer<String> {
 
-    private static final String DEFAULT_CHARSET = "UTF-8";
+    private final Charset charset;
 
-    private String charset = DEFAULT_CHARSET;
+    public StringSerializer() {
+        this(StandardCharsets.UTF_8);
+    }
+
+    public StringSerializer(Charset charset) {
+        this.charset = charset;
+    }
 
     @Override
     public byte[] serialize(String s) throws SerializationException {
-        try {
-            return (s == null ? null : s.getBytes(charset));
-        } catch (UnsupportedEncodingException e) {
-            throw new SerializationException("序列化错误, 字符：" + s, e);
-        }
+        return (null == s ? null : s.getBytes(charset));
     }
 
     @Override
     public String deserialize(byte[] bytes) throws SerializationException {
-        try {
-            return (bytes == null ? null : new String(bytes, charset));
-        } catch (UnsupportedEncodingException e) {
-            throw new SerializationException("反序列化错误", e);
-        }
-    }
-
-    public String getCharset() {
-        return charset;
-    }
-
-    public void setCharset(String charset) {
-        this.charset = charset;
+        return (null == bytes ? null : new String(bytes, charset));
     }
 
 }

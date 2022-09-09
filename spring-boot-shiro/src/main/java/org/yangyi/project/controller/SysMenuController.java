@@ -8,11 +8,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.yangyi.project.annotation.TestAnnotation;
 import org.yangyi.project.service.ISysMenuService;
 import org.yangyi.project.vo.ResponseVO;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/sys/menu")
@@ -28,8 +25,7 @@ public class SysMenuController {
 
     @GetMapping(value = {"/list"})
     @RequiresPermissions(value = {"sys:menu:list"})
-    @TestAnnotation(clazz = Map.class)
-    public ResponseEntity list(Map<String, String> data) {
+    public ResponseEntity list() {
         return ResponseEntity.ok(ResponseVO.success(sysMenuService.list()));
     }
 

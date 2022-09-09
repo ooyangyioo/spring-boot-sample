@@ -1,6 +1,7 @@
 package org.yangyi.project.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -26,12 +27,16 @@ public class SysUser implements Serializable {
 
     private String avatar;
 
+    @JsonIgnore
     private String password;
 
+    @JsonIgnore
     private String salt;
 
+    @JsonIgnore
     private Integer status;
 
+    @JsonIgnore
     private Integer delFlag;
 
     private String createBy;
