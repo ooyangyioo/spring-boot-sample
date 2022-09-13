@@ -9,7 +9,7 @@
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout
-                    pattern="[%date{yy-MM-dd HH:mm:ss.SSS}] [%X{X-B3-TraceId},%X{X-B3-SpanId}] [%t] [%-5level] [%l]---> %msg%n"/>
+                    pattern="[%d{yy-MM-dd HH:mm:ss.SSS}] [%X{TraceId}] [%t] [%-5level] [%l]---> %m%n"/>
         </Console>
     </Appenders>
 

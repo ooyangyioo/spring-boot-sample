@@ -137,10 +137,9 @@ public class ShiroConfig {
 
     @Bean
     public RedisManager redisManager() {
-
-        redisConnectionFactory.getConnection().set("test".getBytes(), "HelloWorld".getBytes());
-        byte[] data = redisConnectionFactory.getConnection().get("test".getBytes());
-        System.err.println(new String(data));
+//        redisConnectionFactory.getConnection().set("test".getBytes(), "HelloWorld".getBytes());
+//        byte[] data = redisConnectionFactory.getConnection().get("test".getBytes());
+//        System.err.println(new String(data));
 
         return new RedisManager();
     }
