@@ -2,7 +2,6 @@ package org.yangyi.project.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +29,7 @@ public class SysUserController {
     }
 
     @GetMapping(value = "/add")
+    @RequiresPermissions(value = {"sys:user:add"})
     public ResponseEntity<String> doSignup(@NotBlank(message = "用户名不能为空") @RequestParam(required = false) String username,
                                            @NotBlank(message = "密码不能为空") @RequestParam(required = false) String password) {
         return ResponseEntity.ok(sysUserService.doSignup(username, password));
@@ -37,7 +37,6 @@ public class SysUserController {
 
     @GetMapping(value = {"/info"})
     @RequiresPermissions(value = {"sys:user:info"})
-//    @RequiresRoles(value = {"Admin"})
     public ResponseEntity<ResponseVO<SysUser>> doInfo() {
         Subject subject = SecurityUtils.getSubject();
         SysUser sysUser = (SysUser) subject.getPrincipal();
@@ -45,11 +44,13 @@ public class SysUserController {
     }
 
     @GetMapping("/edit")
+    @RequiresPermissions(value = {"sys:user:edit"})
     public ResponseEntity doEdit() {
         return ResponseEntity.ok(null);
     }
 
     @GetMapping("/remove")
+    @RequiresPermissions(value = {"sys:user:remove"})
     public ResponseEntity doDelete() {
         return ResponseEntity.ok(null);
     }

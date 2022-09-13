@@ -29,21 +29,25 @@ public class SysRoleController {
     }
 
     @GetMapping(value = {"/info"})
+    @RequiresPermissions(value = {"system:menu:info"})
     public ResponseEntity info() {
         return ResponseEntity.ok(null);
     }
 
     @GetMapping("/add")
+    @RequiresPermissions(value = {"system:menu:add"})
     public ResponseEntity add() {
         return ResponseEntity.ok(ResponseVO.success(sysRoleService.add()));
     }
 
     @GetMapping(value = {"/edit"})
+    @RequiresPermissions(value = {"system:menu:edit"})
     public ResponseEntity edit() {
         return ResponseEntity.ok(null);
     }
 
     @GetMapping(value = {"/remove"})
+    @RequiresPermissions(value = {"system:menu:remove"})
     public ResponseEntity remove() {
         return ResponseEntity.ok(null);
     }

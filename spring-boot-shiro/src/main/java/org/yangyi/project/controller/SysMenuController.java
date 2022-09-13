@@ -30,22 +30,25 @@ public class SysMenuController {
     }
 
     @GetMapping(value = {"/info"})
+    @RequiresPermissions(value = {"sys:menu:info"})
     public ResponseEntity info() {
         return ResponseEntity.ok(null);
     }
 
     @GetMapping(value = {"/add"})
-    @RequiresRoles(value = {"Admin"})
+    @RequiresPermissions(value = {"sys:menu:add"})
     public ResponseEntity add() {
         return ResponseEntity.ok(ResponseVO.success(sysMenuService.add()));
     }
 
     @GetMapping(value = {"/edit"})
+    @RequiresPermissions(value = {"sys:menu:edit"})
     public ResponseEntity edit() {
         return ResponseEntity.ok(null);
     }
 
     @GetMapping(value = {"/remove"})
+    @RequiresPermissions(value = {"sys:menu:remove"})
     public ResponseEntity remove() {
         return ResponseEntity.ok(null);
     }
