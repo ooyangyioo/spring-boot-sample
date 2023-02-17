@@ -21,7 +21,7 @@ public class JwtLoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         LOGGER.warn("登录失败：{}", exception.getMessage());
-        ResponseUtil.unauthorizedResponse(response, new ResponseVO("0", exception.getMessage()));
+        ResponseUtil.unauthorizedResponse(response, ResponseVO.failed(exception.getMessage()));
     }
 
 }

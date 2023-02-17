@@ -9,9 +9,11 @@ import org.yangyi.project.system.service.SysUserService;
 @RequestMapping("/user")
 public class SysUserController {
 
+    private final SysUserService sysUserService;
+
     @Autowired
     public SysUserController(SysUserService sysUserService) {
-
+        this.sysUserService = sysUserService;
     }
 
 

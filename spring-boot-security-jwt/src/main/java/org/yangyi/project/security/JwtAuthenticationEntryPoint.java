@@ -18,6 +18,6 @@ import java.io.IOException;
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        ResponseUtil.unauthorizedResponse(response, new ResponseVO("0", "请登录"));
+        ResponseUtil.unauthorizedResponse(response, ResponseVO.failed("请登录"));
     }
 }

@@ -3,7 +3,6 @@ package org.yangyi.project.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.yangyi.project.web.ResponseVO;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

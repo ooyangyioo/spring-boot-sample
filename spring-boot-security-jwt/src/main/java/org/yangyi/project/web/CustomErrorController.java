@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.yangyi.project.web.ResponseVO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -31,8 +30,7 @@ public class CustomErrorController implements ErrorController {
                 message = "预期外错误！";
                 break;
         }
-        ResponseVO responseVO = new ResponseVO("0", message);
-        return new ResponseEntity(responseVO, httpStatus);
+        return new ResponseEntity(ResponseVO.failed(message), httpStatus);
     }
 
 }

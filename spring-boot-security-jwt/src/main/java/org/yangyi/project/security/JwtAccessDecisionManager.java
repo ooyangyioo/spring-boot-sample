@@ -36,13 +36,11 @@ public class JwtAccessDecisionManager implements AccessDecisionManager {
 
     @Override
     public boolean supports(ConfigAttribute attribute) {
-        System.err.println("55");
         return true;
     }
 
     @Override
     public boolean supports(Class<?> clazz) {
-        System.err.println("66--->" + clazz);
         return true;
     }
 

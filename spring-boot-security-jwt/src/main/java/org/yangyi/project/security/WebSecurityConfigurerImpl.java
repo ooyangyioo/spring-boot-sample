@@ -65,7 +65,7 @@ public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
         //  自定义JWT校验拦截器
         JwtAuthorizationFilter JWTAuthorizationFilter = new JwtAuthorizationFilter(authenticationManager(), (request, response, authException) -> {
             LOGGER.info("Token 验证失败：{}", authException.getMessage());
-            ResponseUtil.unauthorizedResponse(response, new ResponseVO("0", authException.getMessage()));
+            ResponseUtil.unauthorizedResponse(response, ResponseVO.failed(authException.getMessage()));
         });
 
         http.formLogin().disable(). //  禁用 UsernamePasswordAuthenticationFilter 过滤器

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtAuthenticationProvider implements AuthenticationProvider {
 
-    private final UserDetailsServiceImpl userDetailsService;
+    private final JdbcUserDetailsServiceImpl userDetailsService;
     private final PasswordEncoder passwordEncoder;
 
-    public JwtAuthenticationProvider(UserDetailsServiceImpl userDetailsService,
+    public JwtAuthenticationProvider(JdbcUserDetailsServiceImpl userDetailsService,
                                      PasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;

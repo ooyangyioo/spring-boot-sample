@@ -18,36 +18,35 @@ public class GlobalExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
-    public ResponseEntity MissingServletRequestParameterException(Exception e) {
-        ResponseVO<Void> responseVO = new ResponseVO<>("0", "参数缺失");
+    public ResponseEntity<ResponseVO> MissingServletRequestParameterException(Exception e) {
+        LOGGER.warn(e.getMessage());
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity<>(responseVO, httpHeaders, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ResponseVO.failed("参数缺失"), httpHeaders, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = BadCredentialsException.class)
-    public ResponseEntity badCredentialsException() {
-        ResponseVO<Void> responseVO = new ResponseVO<>("0", "请重新登录！");
+    public ResponseEntity<ResponseVO> badCredentialsException(Exception e) {
+        LOGGER.warn(e.getMessage());
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity<>(responseVO, httpHeaders, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(ResponseVO.failed("请重新登录！"), httpHeaders, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(value = AccessDeniedException.class)
-    public ResponseEntity<ResponseVO<Void>> accessDeniedException(Exception e) {
-        ResponseVO<Void> responseVO = new ResponseVO<>("0", "不允许访问!");
+    public ResponseEntity<ResponseVO> accessDeniedException(Exception e) {
+        LOGGER.warn(e.getMessage());
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity<>(responseVO, httpHeaders, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(ResponseVO.failed("不允许访问！"), httpHeaders, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(value = Exception.class)
-    public ResponseEntity<ResponseVO<Void>> exception(Exception e) {
+    public ResponseEntity<ResponseVO> exception(Exception e) {
         LOGGER.error("系统错误，错误信息：", e);
-        ResponseVO<Void> responseVO = new ResponseVO<>("0", "系统错误");
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity<>(responseVO, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(ResponseVO.failed("系统错误！"), httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
