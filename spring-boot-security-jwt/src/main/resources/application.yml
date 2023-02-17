@@ -3,33 +3,13 @@ spring:
     name: @project.artifactId@
   main:
     banner-mode: off
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/spring_cloud_sample
-    username: root
-    password: yangyi126
-  redis:
-    host: 43.227.64.83
-    port: 6379
-    password: yangyi126
-    database: 11
-    connect-timeout: 10000
-    timeout: 10000
-    lettuce:
-      pool:
-        enabled: true
-        max-active: 8
-        max-idle: 8
-        max-wait: -1
-        min-idle: 0
-server:
-  port: 8080
+  profiles:
+    active: dev
 
 mybatis:
   mapper-locations: classpath*:/mapper/*.xml
   type-aliases-package: org.yangyi.project.entity
-  configuration:
-    map-underscore-to-camel-case: true
+  config-location: classpath:mybatis-config.xml
 
 logging:
   config: classpath:log4j2.xml

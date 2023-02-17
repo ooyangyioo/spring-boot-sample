@@ -16,9 +16,9 @@
 
     <repositories>
         <repository>
-            <id>osgeo</id>
-            <name>osgeo</name>
-            <url>https://repo.osgeo.org/repository/geotools-releases/</url>
+            <id>OSGeo</id>
+            <name>OSGeo</name>
+            <url>https://repo.osgeo.org/repository/release/</url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
@@ -130,10 +130,11 @@
             <version>2.0.8</version>
         </dependency>
 
+        <!-- 处理地理空间数据 -->
         <dependency>
             <groupId>org.geotools</groupId>
             <artifactId>gt-referencing</artifactId>
-            <version>27.1</version>
+            <version>27.2</version>
         </dependency>
 
     </dependencies>
