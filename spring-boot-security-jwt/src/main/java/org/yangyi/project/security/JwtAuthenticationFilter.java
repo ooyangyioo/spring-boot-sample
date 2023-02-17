@@ -1,6 +1,8 @@
 package org.yangyi.project.security;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -25,7 +27,9 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
     private String passwordParameter = SPRING_SECURITY_FORM_PASSWORD_KEY;
 
-    private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER = new AntPathRequestMatcher("/jwt/login", "POST");
+    private boolean postOnly = true;
+
+    private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER = new AntPathRequestMatcher("/login", "POST");
 
     public JwtAuthenticationFilter() {
         super(DEFAULT_ANT_PATH_REQUEST_MATCHER);
@@ -37,10 +41,19 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+        if (this.postOnly && !request.getMethod().equals("POST")) {
+            throw new AuthenticationServiceException("请使用POST方式提交");
+        }
         //  设置登录账号参数
         String username = request.getParameter(usernameParameter);
+        if (StringUtils.isBlank(username)) {
+            throw new AuthenticationServiceException("请提供用户名");
+        }
         //  设置登录密码参数
         String password = request.getParameter(passwordParameter);
+        if (StringUtils.isBlank(password)) {
+            throw new AuthenticationServiceException("请提供密码");
+        }
         //  创建未认证的凭证
         JwtAuthenticationToken jwtAuthenticationToken = new JwtAuthenticationToken(username, password);
         return this.getAuthenticationManager().authenticate(jwtAuthenticationToken);
@@ -72,4 +85,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
         this.passwordParameter = passwordParameter;
     }
 
+    public void setPostOnly(boolean postOnly) {
+        this.postOnly = postOnly;
+    }
 }

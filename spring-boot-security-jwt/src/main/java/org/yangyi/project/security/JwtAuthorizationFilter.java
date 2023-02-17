@@ -57,7 +57,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         if (!StringUtils.hasText(header) || !header.startsWith(AUTHENTICATION_SCHEME_BEARER)) {
             return null;
         }
-        String token = header.substring(7);
+        String token = header.substring(AUTHENTICATION_SCHEME_BEARER.length() + 1);
         if (!JWTUtil.verify(token, "123456".getBytes())) {
             throw new BadCredentialsException("凭证无效！");
         }
