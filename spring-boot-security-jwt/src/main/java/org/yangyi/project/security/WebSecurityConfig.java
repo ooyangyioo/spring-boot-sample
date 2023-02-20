@@ -83,7 +83,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    }
 //                })
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/user/signup").permitAll()
+                .antMatchers("/user/signup","/user/signup1").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterAt(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)   //  加入自定义UsernamePasswordAuthenticationFilter替代原有 Filter
                 .addFilterAfter(JWTAuthorizationFilter, JwtAuthenticationFilter.class)   //  添加JWT filter验证其他请求的Token是否合法

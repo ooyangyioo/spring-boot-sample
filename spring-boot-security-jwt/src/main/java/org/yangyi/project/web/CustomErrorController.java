@@ -23,11 +23,11 @@ public class CustomErrorController implements ErrorController {
         switch (statusCode) {
             case 404:
                 httpStatus = HttpStatus.NOT_FOUND;
-                message = "请求不存在！";
+                message = "请求不存在";
                 break;
             case 500:
                 httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-                message = "预期外错误！";
+                message = "预期外错误";
                 break;
         }
         return new ResponseEntity(ResponseVO.failed(message), httpStatus);
