@@ -20,8 +20,7 @@ public class SysUserController {
 
     @PostMapping("/signup")
     public ResponseVO signup(@Validated @RequestBody SignupDTO signupDTO) {
-        sysUserService.userSignup(signupDTO);
-        return ResponseVO.success("成功");
+        return ResponseVO.success(sysUserService.userSignup(signupDTO));
     }
 
 }

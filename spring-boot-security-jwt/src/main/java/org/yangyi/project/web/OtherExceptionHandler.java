@@ -56,7 +56,7 @@ public class OtherExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ResponseVO exception(Exception e) {
-        log.error("系统错误：{}", e.getMessage());
+        log.error("系统错误", e);
         return ResponseVO.failed("系统错误，请联系管理员");
     }
 

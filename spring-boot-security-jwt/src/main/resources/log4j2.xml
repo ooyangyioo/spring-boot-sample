@@ -13,6 +13,11 @@
     </Appenders>
 
     <Loggers>
+        <logger name="org.yangyi.project.system.dao" level="DEBUG"/>
+        <logger name="org.springframework" level="ERROR"/>
+        <logger name="org.apache" level="ERROR"/>
+        <logger name="org.hibernate" level="ERROR"/>
+
         <Root level="INFO">
             <AppenderRef ref="ConsoleAppender"/>
         </Root>

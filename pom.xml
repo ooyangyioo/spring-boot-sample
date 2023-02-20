@@ -25,6 +25,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
+        <pagehelper-spring-boot-starter.version>1.4.6</pagehelper-spring-boot-starter.version>
         <mybatis-generator-maven-plugin.version>1.4.1</mybatis-generator-maven-plugin.version>
         <shiro-spring-boot-starter.version>1.9.1</shiro-spring-boot-starter.version>
         <seata-spring-boot-starter.version>1.5.2</seata-spring-boot-starter.version>
@@ -56,6 +57,12 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-spring-boot-starter.version}</version>
             </dependency>
 
             <dependency>

@@ -1,9 +1,10 @@
 package org.yangyi.project.system.service;
 
 import org.yangyi.project.system.dto.SignupDTO;
+import org.yangyi.project.system.po.SysUser;
 
 public interface SysUserService {
 
-    void userSignup(SignupDTO signupDTO);
+    SysUser userSignup(SignupDTO signupDTO);
 
 }

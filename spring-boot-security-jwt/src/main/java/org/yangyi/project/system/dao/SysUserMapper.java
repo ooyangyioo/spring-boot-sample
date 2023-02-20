@@ -1,17 +1,21 @@
 package org.yangyi.project.system.dao;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.yangyi.project.system.po.SysUser;
 
+@Mapper
 public interface SysUserMapper {
-    int deleteByPrimaryKey(Long userId);
+    int deleteByUserId(Long userId);
 
     int insert(SysUser row);
 
-    int insertSelective(SysUser row);
+    @Select("select * from sys_user where user_id = #{userId}")
+    SysUser selectByUserId(Long userId);
 
-    SysUser selectByPrimaryKey(Long userId);
+    @Select("select * from sys_user where user_name = #{userName}")
+    SysUser selectByUserName(String userName);
 
-    int updateByPrimaryKeySelective(SysUser row);
+    int updateByUserId(SysUser row);
 
-    int updateByPrimaryKey(SysUser row);
 }

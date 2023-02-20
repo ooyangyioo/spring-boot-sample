@@ -16,7 +16,7 @@ public class SysUser implements Serializable {
 
     private String email;
 
-    private String phonenumber;
+    private String phoneNumber;
 
     private String sex;
 
@@ -92,12 +92,12 @@ public class SysUser implements Serializable {
         this.email = email == null ? null : email.trim();
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber == null ? null : phonenumber.trim();
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber == null ? null : phoneNumber.trim();
     }
 
     public String getSex() {
