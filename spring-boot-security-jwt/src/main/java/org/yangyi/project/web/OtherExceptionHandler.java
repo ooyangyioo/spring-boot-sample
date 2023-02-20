@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.yangyi.project.exception.BusinessException;
 
 @RestControllerAdvice
 @Order(101)
@@ -50,6 +51,13 @@ public class OtherExceptionHandler {
     public ResponseVO accessDeniedException(Exception e) {
         log.warn(e.getMessage());
         return ResponseVO.failed("不允许访问");
+    }
+
+    @ExceptionHandler(value = BusinessException.class)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseVO BusinessException(Exception e) {
+        return ResponseVO.failed(e.getMessage());
     }
 
     @ExceptionHandler(value = Exception.class)

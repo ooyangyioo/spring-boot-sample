@@ -16,6 +16,12 @@
         <setting name="callSettersOnNulls" value="true"/>
     </settings>
 
+    <plugins>
+        <plugin interceptor="org.yangyi.project.mybatis.AutoIdInterceptor">
+            <property name="test" value="yy"/>
+        </plugin>
+    </plugins>
+
     <!--<typeAliases>-->
     <!--<package name="com.yangyi.project.bean"/>-->
     <!--</typeAliases>-->

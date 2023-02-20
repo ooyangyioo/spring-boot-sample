@@ -25,8 +25,9 @@ public class AutoIdInterceptor implements Interceptor {
         MappedStatement mappedStatement = (MappedStatement) args[0];
         Object entity = args[1];
         if (mappedStatement.getSqlCommandType().equals(SqlCommandType.INSERT)) {
+            // 获取实体集合
             Set<Object> entitySet = new HashSet<>();
-            if (entity instanceof Map) {
+            if (entity instanceof Map) {    //  批量插入对象
                 Collection values = (Collection) ((Map) entity).get("list");
                 for (Object value : values) {
                     if (value instanceof Collection) {
@@ -35,9 +36,10 @@ public class AutoIdInterceptor implements Interceptor {
                         entitySet.add(value);
                     }
                 }
-            } else {
+            } else {    //  单个插入对象
                 entitySet.add(entity);
             }
+            // 批量设置id
             for (Object object : entitySet)
                 process(object);
         }

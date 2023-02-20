@@ -1,9 +1,14 @@
 package org.yangyi.project.system.po;
 
+import org.yangyi.project.mybatis.AutoId;
+import org.yangyi.project.mybatis.IdType;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class SysUser implements Serializable {
+
+    @AutoId(IdType.SNOWFLAKE)
     private Long userId;
 
     private Long deptId;
