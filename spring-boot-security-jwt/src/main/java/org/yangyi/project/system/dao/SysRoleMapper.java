@@ -1,0 +1,20 @@
+package org.yangyi.project.system.dao;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.yangyi.project.system.po.SysRole;
+
+@Mapper
+public interface SysRoleMapper {
+
+    @Delete("delete from sys_role where role_id = #{roleId")
+    int delete(Long roleId);
+
+    int insert(SysRole row);
+
+    @Select("select * from sys_role where role_id = #{roleId}")
+    SysRole select(Long roleId);
+
+    int update(SysRole row);
+}

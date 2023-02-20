@@ -11,9 +11,9 @@ public class SysUser implements Serializable {
     @AutoId(IdType.SNOWFLAKE)
     private Long userId;
 
-    private Long deptId;
-
     private String userName;
+
+    private Long deptId;
 
     private String nickName;
 
@@ -57,20 +57,20 @@ public class SysUser implements Serializable {
         this.userId = userId;
     }
 
-    public Long getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Long deptId) {
-        this.deptId = deptId;
-    }
-
     public String getUserName() {
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
+    }
+
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     public String getNickName() {

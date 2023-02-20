@@ -9,12 +9,12 @@ import org.yangyi.project.exception.BusinessException;
 import org.yangyi.project.system.dao.SysUserMapper;
 import org.yangyi.project.system.dto.SignupDTO;
 import org.yangyi.project.system.po.SysUser;
-import org.yangyi.project.system.service.SysUserService;
+import org.yangyi.project.system.service.ISysUserService;
 
 import java.util.Objects;
 
 @Service
-public class SysUserServiceImpl implements SysUserService {
+public class SysUserServiceImpl implements ISysUserService {
 
     private static final Logger logger = LoggerFactory.getLogger(SysUserServiceImpl.class);
 

@@ -4,8 +4,8 @@
 
     <resultMap id="SysUserResultMap" type="org.yangyi.project.system.po.SysUser">
         <id column="user_id" jdbcType="BIGINT" property="userId"/>
-        <result column="dept_id" jdbcType="BIGINT" property="deptId"/>
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="dept_id" jdbcType="BIGINT" property="deptId"/>
         <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
         <result column="user_type" jdbcType="VARCHAR" property="userType"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
@@ -30,19 +30,6 @@
     password, status, del_flag, login_ip, login_date, create_by, create_time, update_by, 
     update_time, remark
     </sql>
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="SysUserResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from sys_user
-        where user_id = #{userId,jdbcType=BIGINT}
-    </select>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete
-        from sys_user
-        where user_id = #{userId,jdbcType=BIGINT}
-    </delete>
 
     <insert id="insert" parameterType="org.yangyi.project.system.po.SysUser">
         insert into sys_user
@@ -166,7 +153,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="org.yangyi.project.system.po.SysUser">
+    <update id="update" parameterType="org.yangyi.project.system.po.SysUser">
         update sys_user
         <set>
             <if test="deptId != null">
