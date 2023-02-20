@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 @Order(101)
-public class OtherExceptionHandle {
+public class OtherExceptionHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(OtherExceptionHandle.class);
+    private static final Logger log = LoggerFactory.getLogger(OtherExceptionHandler.class);
 
 
     @ExceptionHandler(value = MissingServletRequestParameterException.class)

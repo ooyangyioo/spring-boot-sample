@@ -17,9 +17,9 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 @Order(100)
-public class ValidationExceptionHandle {
+public class ValidationExceptionHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(ValidationExceptionHandle.class);
+    private static final Logger log = LoggerFactory.getLogger(ValidationExceptionHandler.class);
 
     /**
      * BindException 异常处理

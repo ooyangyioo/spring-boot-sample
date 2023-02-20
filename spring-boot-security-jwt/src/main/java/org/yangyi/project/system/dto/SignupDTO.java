@@ -3,6 +3,9 @@ package org.yangyi.project.system.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+/**
+ * 注册请求
+ */
 public class SignupDTO {
 
     @NotEmpty(message = "用户名不能为空")

@@ -23,8 +23,16 @@ public class ResponseVO {
         return new ResponseVO("1", "成功", data);
     }
 
+    public static ResponseVO success(String message) {
+        return new ResponseVO("1", message, null);
+    }
+
     public static ResponseVO failed(Object data) {
         return new ResponseVO("0", "失败", data);
+    }
+
+    public static ResponseVO failed(String message) {
+        return new ResponseVO("0", message, null);
     }
 
     public String getCode() {
