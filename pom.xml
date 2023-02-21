@@ -29,7 +29,7 @@
         <mybatis-generator-maven-plugin.version>1.4.1</mybatis-generator-maven-plugin.version>
         <shiro-spring-boot-starter.version>1.9.1</shiro-spring-boot-starter.version>
         <seata-spring-boot-starter.version>1.5.2</seata-spring-boot-starter.version>
-        <mysql.version>8.0.30</mysql.version>
+        <mysql.version>8.0.32</mysql.version>
     </properties>
 
     <dependencyManagement>
@@ -78,8 +78,8 @@
             </dependency>
 
             <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
                 <version>${mysql.version}</version>
             </dependency>
         </dependencies>
@@ -135,7 +135,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.2.2</version>
+                    <version>3.3.0</version>
                 </plugin>
 
                 <plugin>
@@ -147,7 +147,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>3.5.0</version>
                 </plugin>
 
             </plugins>
