@@ -23,4 +23,10 @@ public class SysUserController {
         return ResponseVO.success(sysUserService.userSignup(signupDTO));
     }
 
+    @PostMapping("/info")
+    public ResponseVO info(@RequestParam(required = false) String userId) {
+        System.err.println(userId);
+        return ResponseVO.success(userId);
+    }
+
 }

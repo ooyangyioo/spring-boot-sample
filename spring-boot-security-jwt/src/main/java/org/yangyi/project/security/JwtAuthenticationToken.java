@@ -28,7 +28,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
         super(null);
         this.principal = principal;
         this.credentials = credentials;
-        this.setAuthenticated(false);
+        setAuthenticated(false);
     }
 
     /**
@@ -44,7 +44,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
         super(authorities);
         this.principal = principal;
         this.credentials = credentials;
-        super.setAuthenticated(true);
+        setAuthenticated(true);
     }
 
     public Object getCredentials() {

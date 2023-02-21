@@ -4,7 +4,6 @@ import cn.hutool.core.exceptions.ValidateException;
 import cn.hutool.jwt.JWT;
 import cn.hutool.jwt.JWTUtil;
 import cn.hutool.jwt.JWTValidator;
-import com.alibaba.fastjson.JSON;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.util.StringUtils;
+import org.yangyi.project.system.dao.SysUserMapper;
+import org.yangyi.project.system.po.SysUser;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -28,8 +29,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     public static final String AUTHENTICATION_SCHEME_BEARER = "Bearer";
 
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, AuthenticationEntryPoint authenticationEntryPoint) {
+    private final SysUserMapper sysUserMapper;
+
+    public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
+                                  AuthenticationEntryPoint authenticationEntryPoint,
+                                  SysUserMapper sysUserMapper) {
         super(authenticationManager, authenticationEntryPoint);
+        this.sysUserMapper = sysUserMapper;
     }
 
     @Override
@@ -71,9 +77,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         JWT jwt = JWTUtil.parseToken(token);
-        String userString = (String) jwt.getPayload("user");
-        JwtUserDetails jwtUserDetails = JSON.parseObject(userString, JwtUserDetails.class);
-        return new JwtAuthenticationToken(jwtUserDetails.getUsername(), jwtUserDetails.getPassword(), jwtUserDetails.getAuthorities());
+        String username = (String) jwt.getPayload("username");
+        System.err.println(username);
+//        JwtUserDetails jwtUserDetails = JSON.parseObject(userString, JwtUserDetails.class);
+        SysUser sysUser = sysUserMapper.selectByUserName(username);
+//        return new JwtAuthenticationToken(sysUser.getUserName(), sysUser.getPassword(), jwtUserDetails.getAuthorities());
+        return new JwtAuthenticationToken(sysUser.getUserName(), sysUser.getPassword(), null);
     }
 
 }

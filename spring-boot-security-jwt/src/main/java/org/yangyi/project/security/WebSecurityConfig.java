@@ -2,6 +2,7 @@ package org.yangyi.project.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.yangyi.project.system.dao.SysUserMapper;
 import org.yangyi.project.web.ResponseUtil;
 import org.yangyi.project.web.ResponseVO;
 
@@ -33,6 +35,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAccessDecisionManager jwtAccessDecisionManager;
     private final JwtLogoutSuccessHandler jwtLogoutSuccessHandler;
     private final JwtSessionInformationExpiredStrategy jwtSessionInformationExpiredStrategy;
+
+    @Autowired
+    private SysUserMapper sysUserMapper;
 
     public WebSecurityConfig(JwtAccessDeniedHandler jwtAccessDeniedHandler,
                              JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
@@ -68,7 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         JwtAuthorizationFilter JWTAuthorizationFilter = new JwtAuthorizationFilter(authenticationManager(), (request, response, authException) -> {
             LOGGER.info("Token 验证失败：{}", authException.getMessage());
             ResponseUtil.unauthorizedResponse(response, ResponseVO.failed(authException.getMessage()));
-        });
+        }, sysUserMapper);
 
         http.formLogin().disable(). //  禁用 UsernamePasswordAuthenticationFilter 过滤器
                 httpBasic().disable().  //  禁用  BasicAuthenticationFilter 过滤器
@@ -83,7 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    }
 //                })
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/user/signup","/user/signup1").permitAll()
+                .antMatchers("/user/signup", "/user/signup1").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterAt(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)   //  加入自定义UsernamePasswordAuthenticationFilter替代原有 Filter
                 .addFilterAfter(JWTAuthorizationFilter, JwtAuthenticationFilter.class)   //  添加JWT filter验证其他请求的Token是否合法
