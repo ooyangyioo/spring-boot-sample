@@ -2,8 +2,11 @@ package org.yangyi.project.system.dao;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.yangyi.project.system.po.SysRole;
+
+import java.util.List;
 
 @Mapper
 public interface SysRoleMapper {
@@ -17,4 +20,6 @@ public interface SysRoleMapper {
     SysRole select(Long roleId);
 
     int update(SysRole row);
+
+    List<SysRole> selectUserRoles(@Param("userId") Long userId);
 }

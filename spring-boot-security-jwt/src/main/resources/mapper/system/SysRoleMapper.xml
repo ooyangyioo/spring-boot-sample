@@ -133,4 +133,12 @@
         where role_id = #{roleId,jdbcType=BIGINT}
     </update>
 
+    <!-- 查询用户拥有的权限列表 -->
+    <select id="selectUserRoles" resultMap="SysRoleResultMap">
+        select sr.*
+        from sys_role sr
+                 left join sys_user_role sur on sur.role_id = sr.role_id
+        where sur.user_id = #{userId,jdbcType=BIGINT}
+    </select>
+
 </mapper>

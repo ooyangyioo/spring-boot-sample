@@ -17,7 +17,7 @@
 
     <resultMap id="SysUserRoleResultMap" type="org.yangyi.project.entity.ShiroUserRole" extends="SysUserResultMap">
         <collection property="sysRoles" column="{userId = id}" ofType="org.yangyi.project.entity.ShiroRole"
-                    javaType="ArrayList" select="org.yangyi.project.dao.ShiroRoleDao.selectUserRole"/>
+                    javaType="ArrayList" select="org.yangyi.project.dao.ShiroRoleDao.selectUserShiroRoles"/>
     </resultMap>
 
     <sql id="SysUserColumnList">

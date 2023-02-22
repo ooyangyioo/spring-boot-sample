@@ -6,6 +6,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,7 +35,15 @@ public class OtherExceptionHandler {
     @ResponseBody
     public ResponseVO httpRequestMethodNotSupportedException(Exception e) {
         log.warn("用户请求异常：{}", e.getMessage());
-        return ResponseVO.failed("不支持该请求");
+        return ResponseVO.failed("请使用POST请求");
+    }
+
+    @ExceptionHandler(value = HttpMediaTypeNotSupportedException.class)
+    @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+    @ResponseBody
+    public ResponseVO httpMediaTypeNotSupportedException(Exception e) {
+        log.warn("用户请求异常：{}", e.getMessage());
+        return ResponseVO.failed("请使用JSON格式请求");
     }
 
     @ExceptionHandler(value = BadCredentialsException.class)

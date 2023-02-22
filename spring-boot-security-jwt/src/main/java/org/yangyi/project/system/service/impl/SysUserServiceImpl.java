@@ -10,6 +10,7 @@ import org.yangyi.project.exception.BusinessException;
 import org.yangyi.project.system.dao.SysUserMapper;
 import org.yangyi.project.system.dto.SignupDTO;
 import org.yangyi.project.system.po.SysUser;
+import org.yangyi.project.system.po.SysUserRole;
 import org.yangyi.project.system.service.ISysUserService;
 
 import java.util.Objects;
@@ -43,9 +44,15 @@ public class SysUserServiceImpl implements ISysUserService {
     }
 
     @Override
-    @Cacheable(cacheNames = {"user"}, key = "#username")
     public SysUser userByName(String username) {
         SysUser sysUser = sysUserMapper.selectByUserName(username);
         return sysUser;
+    }
+
+    @Override
+    @Cacheable(cacheNames = {"user"}, key = "#username")
+    public SysUserRole userWithRole(String username) {
+        SysUserRole sysUserRole = sysUserMapper.selectUserWithRoles(username);
+        return sysUserRole;
     }
 }

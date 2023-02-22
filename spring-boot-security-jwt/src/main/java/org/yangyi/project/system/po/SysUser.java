@@ -17,8 +17,6 @@ public class SysUser implements Serializable {
 
     private String nickName;
 
-    private String userType;
-
     private String email;
 
     private String phoneNumber;
@@ -79,14 +77,6 @@ public class SysUser implements Serializable {
 
     public void setNickName(String nickName) {
         this.nickName = nickName == null ? null : nickName.trim();
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType == null ? null : userType.trim();
     }
 
     public String getEmail() {

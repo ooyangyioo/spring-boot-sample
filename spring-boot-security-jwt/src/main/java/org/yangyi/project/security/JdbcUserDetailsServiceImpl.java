@@ -8,7 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.yangyi.project.system.po.SysRole;
 import org.yangyi.project.system.po.SysUser;
+import org.yangyi.project.system.po.SysUserRole;
 import org.yangyi.project.system.service.ISysUserService;
 
 import java.util.*;
@@ -27,24 +29,21 @@ public class JdbcUserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser sysUser = null;
+        SysUserRole sysUserRole = null;
         try {
-            sysUser = sysUserService.userByName(username);
+            sysUserRole = sysUserService.userWithRole(username);
         } catch (Exception e) {
             logger.error("从数据库或缓存未查询到用户：[{}]；错误信息：{}", username, e.getMessage());
         }
-        if (Objects.isNull(sysUser))
+        if (Objects.isNull(sysUserRole))
             throw new UsernameNotFoundException("用户不存在");
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        List<String> sysRoleList = new ArrayList<>() {{
-            add("admin");
-            add("guest");
-        }};
-        sysRoleList.forEach(sysRole -> authorities.add(new SimpleGrantedAuthority(sysRole)));
+        List<SysRole> sysRoleList = sysUserRole.getSysRoles();
+        sysRoleList.forEach(sysRole -> authorities.add(new SimpleGrantedAuthority(sysRole.getRoleKey())));
         return new JwtUserDetails(
-                sysUser.getUserName(),
-                sysUser.getPassword(),
+                sysUserRole.getUserName(),
+                sysUserRole.getPassword(),
                 true,
                 false,
                 false,

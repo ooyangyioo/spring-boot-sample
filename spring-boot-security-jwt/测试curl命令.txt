@@ -2,4 +2,10 @@ curl -X POST -H "Accept: application/json" -H "Content-type: application/json" '
 
 
 curl -X POST 'http://localhost:8080/user/login' --header "Content-Type: multipart/form-data" -F username=yangyi -F password=yangyi126
-curl -X POST 'http://localhost:8080/user/info?userId=670319205115109376' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NzY5NzIyNTQsImV4cCI6MTY3NzA1ODY1NCwiaWF0IjoxNjc2OTcyMjU0LCJ1c2VybmFtZSI6Inlhbmd5aSJ9.2XKIKvxlUpSj_sYorCM47rMydzDr-qTq_Dk0AIOF6NQ'
+curl -X POST 'http://localhost:8080/user/info?userId=670319205115109376' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NzcwNTMwODQsImV4cCI6MTY3NzEzOTQ4NCwiaWF0IjoxNjc3MDUzMDg0LCJ1c2VybmFtZSI6Inlhbmd5aSJ9.yeqymdssixpb1PYFdZSKzcp7CWqC3ld0yIaDGo444is'
+curl -X POST 'http://localhost:8080/role/add' -d '{"roleName":"超级管理员","roleKey":"admin","roleSort":1,"remark":"超级管理员"}' -H "Accept: application/json" -H "Content-type: application/json" -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NzcwNTMwODQsImV4cCI6MTY3NzEzOTQ4NCwiaWF0IjoxNjc3MDUzMDg0LCJ1c2VybmFtZSI6Inlhbmd5aSJ9.yeqymdssixpb1PYFdZSKzcp7CWqC3ld0yIaDGo444is'
+
+
+
+
+

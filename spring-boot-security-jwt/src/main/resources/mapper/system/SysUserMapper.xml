@@ -7,7 +7,6 @@
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
         <result column="dept_id" jdbcType="BIGINT" property="deptId"/>
         <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
-        <result column="user_type" jdbcType="VARCHAR" property="userType"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber"/>
         <result column="sex" jdbcType="CHAR" property="sex"/>
@@ -24,12 +23,22 @@
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
     </resultMap>
 
+    <resultMap id="SysUserRoleResultMap" type="org.yangyi.project.system.po.SysUserRole" extends="SysUserResultMap">
+        <collection property="sysRoles" column="{userId = user_id}" ofType="org.yangyi.project.system.po.SysRole"
+                    javaType="ArrayList" select="org.yangyi.project.system.dao.SysRoleMapper.selectUserRoles"/>
+    </resultMap>
+
     <sql id="BaseColumnList">
         user_id
-        , dept_id, user_name, nick_name, user_type, email, phone_number, sex, avatar,
+        , dept_id, user_name, nick_name, email, phone_number, sex, avatar,
     password, status, del_flag, login_ip, login_date, create_by, create_time, update_by, 
     update_time, remark
     </sql>
+
+    <select id="selectUserWithRoles" resultMap="SysUserRoleResultMap">
+        select * from sys_user
+        where user_name = #{userName,jdbcType=VARCHAR}
+    </select>
 
     <insert id="insert" parameterType="org.yangyi.project.system.po.SysUser">
         insert into sys_user
@@ -45,9 +54,6 @@
             </if>
             <if test="nickName != null">
                 nick_name,
-            </if>
-            <if test="userType != null">
-                user_type,
             </if>
             <if test="email != null">
                 email,
@@ -105,9 +111,6 @@
             <if test="nickName != null">
                 #{nickName,jdbcType=VARCHAR},
             </if>
-            <if test="userType != null">
-                #{userType,jdbcType=VARCHAR},
-            </if>
             <if test="email != null">
                 #{email,jdbcType=VARCHAR},
             </if>
@@ -164,9 +167,6 @@
             </if>
             <if test="nickName != null">
                 nick_name = #{nickName,jdbcType=VARCHAR},
-            </if>
-            <if test="userType != null">
-                user_type = #{userType,jdbcType=VARCHAR},
             </if>
             <if test="email != null">
                 email = #{email,jdbcType=VARCHAR},

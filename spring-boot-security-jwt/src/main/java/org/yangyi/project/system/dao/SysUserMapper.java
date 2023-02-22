@@ -2,8 +2,10 @@ package org.yangyi.project.system.dao;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.yangyi.project.system.po.SysUser;
+import org.yangyi.project.system.po.SysUserRole;
 
 @Mapper
 public interface SysUserMapper {
@@ -20,4 +22,6 @@ public interface SysUserMapper {
 
     @Select("select * from sys_user where user_name = #{userName}")
     SysUser selectByUserName(String userName);
+
+    SysUserRole selectUserWithRoles(@Param("userName") String userName);
 }
