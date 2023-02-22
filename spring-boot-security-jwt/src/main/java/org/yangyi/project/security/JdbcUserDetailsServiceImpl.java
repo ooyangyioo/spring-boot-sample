@@ -1,29 +1,38 @@
 package org.yangyi.project.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.yangyi.project.system.dao.SysUserMapper;
 import org.yangyi.project.system.po.SysUser;
+import org.yangyi.project.system.service.ISysUserService;
 
 import java.util.*;
 
 @Service
 public class JdbcUserDetailsServiceImpl implements UserDetailsService {
 
-    private final SysUserMapper sysUserMapper;
+    private static final Logger logger = LoggerFactory.getLogger(JdbcUserDetailsServiceImpl.class);
+
+    private final ISysUserService sysUserService;
 
     @Autowired
-    public JdbcUserDetailsServiceImpl(SysUserMapper sysUserMapper) {
-        this.sysUserMapper = sysUserMapper;
+    public JdbcUserDetailsServiceImpl(ISysUserService sysUserService) {
+        this.sysUserService = sysUserService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser sysUser = sysUserMapper.selectByUserName(username);
+        SysUser sysUser = null;
+        try {
+            sysUser = sysUserService.userByName(username);
+        } catch (Exception e) {
+            logger.error("从数据库或缓存未查询到用户：[{}]；错误信息：{}", username, e.getMessage());
+        }
         if (Objects.isNull(sysUser))
             throw new UsernameNotFoundException("用户不存在");
 

@@ -65,7 +65,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
         String token = header.substring(AUTHENTICATION_SCHEME_BEARER.length() + 1);
         if (!JWTUtil.verify(token, "123456".getBytes())) {
-            throw new BadCredentialsException("凭证无效！");
+            throw new BadCredentialsException("凭证无效");
         }
         /**
          * 验证Token有效期
@@ -73,12 +73,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         try {
             JWTValidator.of(token).validateDate();
         } catch (ValidateException e) {
-            throw new CredentialsExpiredException("凭证已过期！");
+            throw new CredentialsExpiredException("凭证已过期");
         }
 
         JWT jwt = JWTUtil.parseToken(token);
         String username = (String) jwt.getPayload("username");
-        System.err.println(username);
 //        JwtUserDetails jwtUserDetails = JSON.parseObject(userString, JwtUserDetails.class);
         SysUser sysUser = sysUserMapper.selectByUserName(username);
 //        return new JwtAuthenticationToken(sysUser.getUserName(), sysUser.getPassword(), jwtUserDetails.getAuthorities());

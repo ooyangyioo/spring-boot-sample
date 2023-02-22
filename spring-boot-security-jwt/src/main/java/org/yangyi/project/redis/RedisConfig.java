@@ -1,4 +1,4 @@
-package org.yangyi.project.cache;
+package org.yangyi.project.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -28,16 +28,16 @@ public class RedisConfig {
     public RedisCacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisSerializer<String> stringRedisSerializer = new StringRedisSerializer();
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-                .disableCachingNullValues() //  禁用缓存空值，不缓存null校验
+                .disableCachingNullValues() //  若返回值为null，则不允许存储到Cache中
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(stringRedisSerializer))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(getJackson2JsonRedisSerializer()));
 
         Set cacheNameSet = new HashSet() {{
-            add("USERS");
+            add("user");
         }};
 
         ConcurrentHashMap cacheConfigMap = new ConcurrentHashMap();
-        cacheConfigMap.put("USERS", redisCacheConfiguration.entryTtl(Duration.ofSeconds(7200)));    //  自定义有效期
+        cacheConfigMap.put("user", redisCacheConfiguration.entryTtl(Duration.ofSeconds(7200)));    //  自定义有效期
         //  cacheConfigMap.put("Test", redisCacheConfiguration);    //  永久有效
 
         RedisCacheManager cacheManager = RedisCacheManager

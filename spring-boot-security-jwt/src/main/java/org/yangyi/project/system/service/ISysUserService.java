@@ -7,4 +7,5 @@ public interface ISysUserService {
 
     SysUser userSignup(SignupDTO signupDTO);
 
+    SysUser userByName(String username);
 }

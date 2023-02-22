@@ -26,7 +26,7 @@
 
         <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
         <pagehelper-spring-boot-starter.version>1.4.6</pagehelper-spring-boot-starter.version>
-        <mybatis-generator-maven-plugin.version>1.4.1</mybatis-generator-maven-plugin.version>
+        <mybatis-generator-maven-plugin.version>1.4.2</mybatis-generator-maven-plugin.version>
         <shiro-spring-boot-starter.version>1.9.1</shiro-spring-boot-starter.version>
         <seata-spring-boot-starter.version>1.5.2</seata-spring-boot-starter.version>
         <mysql.version>8.0.32</mysql.version>

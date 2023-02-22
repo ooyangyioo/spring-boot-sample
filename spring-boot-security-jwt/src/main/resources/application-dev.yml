@@ -5,10 +5,10 @@ spring:
     username: root
     password: yangyi126
   redis:
-    host: 43.227.64.83
+    host: 127.0.0.1
     port: 6379
     password: yangyi126
-    database: 11
+    database: 0
     connect-timeout: 10000
     timeout: 10000
     lettuce:

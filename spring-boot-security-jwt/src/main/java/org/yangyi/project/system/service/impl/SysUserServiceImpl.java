@@ -3,6 +3,7 @@ package org.yangyi.project.system.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.yangyi.project.exception.BusinessException;
@@ -33,12 +34,18 @@ public class SysUserServiceImpl implements ISysUserService {
         if (!Objects.isNull(this.sysUserMapper.selectByUserName(signupDTO.getUsername())))
             throw new BusinessException("账号已存在");
 
-        SysUser sysUser = new SysUser(){{
+        SysUser sysUser = new SysUser() {{
             setUserName(signupDTO.getUsername());
             setPassword(passwordEncoder.encode(signupDTO.getPassword()));
         }};
         int result = sysUserMapper.insert(sysUser);
+        return sysUser;
+    }
 
+    @Override
+    @Cacheable(cacheNames = {"user"}, key = "#username")
+    public SysUser userByName(String username) {
+        SysUser sysUser = sysUserMapper.selectByUserName(username);
         return sysUser;
     }
 }
