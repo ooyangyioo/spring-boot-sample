@@ -11,6 +11,10 @@ import org.springframework.util.AntPathMatcher;
 
 import java.util.Collection;
 
+/**
+ * 自定义权限资源过滤器，实现动态的权限验证
+ * 它的主要责任就是当访问一个url时，返回这个url所需要的访问权限
+ */
 @Component
 public class JwtFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
@@ -34,13 +38,11 @@ public class JwtFilterInvocationSecurityMetadataSource implements FilterInvocati
 
     @Override
     public Collection<ConfigAttribute> getAllConfigAttributes() {
-        System.err.println("22");
         return null;
     }
 
     @Override
     public boolean supports(Class<?> clazz) {
-        System.err.println("33" + clazz);
         return FilterInvocation.class.isAssignableFrom(clazz);
     }
 

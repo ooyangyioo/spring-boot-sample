@@ -1,7 +1,5 @@
 package org.yangyi.project.security;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,9 +10,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.yangyi.project.system.dao.SysUserMapper;
 import org.yangyi.project.web.ResponseUtil;
 import org.yangyi.project.web.ResponseVO;
 
@@ -22,14 +18,10 @@ import org.yangyi.project.web.ResponseVO;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WebSecurityConfig.class);
-
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-
     private final JwtLoginSuccessHandler jwtLoginSuccessHandler;
     private final JwtLoginFailureHandler jwtLoginFailureHandler;
-
     private final JwtAuthenticationProvider jwtAuthenticationProvider;
     private final JwtFilterInvocationSecurityMetadataSource jwtFilterInvocationSecurityMetadataSource;
     private final JwtAccessDecisionManager jwtAccessDecisionManager;
@@ -37,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtSessionInformationExpiredStrategy jwtSessionInformationExpiredStrategy;
 
     @Autowired
-    private SysUserMapper sysUserMapper;
+    private JwtAuthorizationFilter jwtAuthorizationFilter;
 
     public WebSecurityConfig(JwtAccessDeniedHandler jwtAccessDeniedHandler,
                              JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
@@ -70,10 +62,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         jwtAuthenticationFilter.setAuthenticationFailureHandler(jwtLoginFailureHandler); //  失败结果处理器
 
         //  自定义JWT校验拦截器
-        JwtAuthorizationFilter JWTAuthorizationFilter = new JwtAuthorizationFilter(authenticationManager(), (request, response, authException) -> {
-            LOGGER.info("Token 验证失败：{}", authException.getMessage());
-            ResponseUtil.unauthorizedResponse(response, ResponseVO.failed(authException.getMessage()));
-        }, sysUserMapper);
+//        JwtAuthorizationFilter jwtAuthorizationFilter = new JwtAuthorizationFilter(authenticationManager(), (request, response, authException) -> {
+//            LOGGER.info("Token 验证失败：{}", authException.getMessage());
+//            ResponseUtil.unauthorizedResponse(response, ResponseVO.failed(authException.getMessage()));
+//        }, sysUserMapper);
 
         http.formLogin().disable(). //  禁用 UsernamePasswordAuthenticationFilter 过滤器
                 httpBasic().disable().  //  禁用  BasicAuthenticationFilter 过滤器
@@ -88,14 +80,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    }
 //                })
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/user/signup", "/user/signup1").permitAll()
+                .antMatchers("/user/signup").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterAt(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)   //  加入自定义UsernamePasswordAuthenticationFilter替代原有 Filter
-                .addFilterAfter(JWTAuthorizationFilter, JwtAuthenticationFilter.class)   //  添加JWT filter验证其他请求的Token是否合法
+                .addFilterAfter(jwtAuthorizationFilter, JwtAuthenticationFilter.class)   //  添加JWT filter验证其他请求的Token是否合法
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //  禁用session
 //                .sessionManagement().maximumSessions(1).  //  同一账号同时登录最大用户数
 //                expiredSessionStrategy(jwtSessionInformationExpiredStrategy)  //  会话信息过期策略
-                .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint) //  匿名用户访问无权限资源的异常处理
+                .and().exceptionHandling().authenticationEntryPoint((request, response, authException) -> ResponseUtil.unauthorizedResponse(response, ResponseVO.failed("请登录"))) //  用户访问无权限资源的异常处理
                 .accessDeniedHandler(jwtAccessDeniedHandler)   //  认证过的用户访问无权限资源的异常处理
                 .and().cors().and().csrf().disable();
 

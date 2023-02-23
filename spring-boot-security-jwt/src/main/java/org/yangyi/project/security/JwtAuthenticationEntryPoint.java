@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 匿名用户访问无权限资源时的异常
+ * 用户访问无权限资源时的异常
  */
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        ResponseUtil.unauthorizedResponse(response, ResponseVO.failed("请登录"));
+        ResponseUtil.unauthorizedResponse(response, ResponseVO.failed(authException.getMessage()));
     }
 }

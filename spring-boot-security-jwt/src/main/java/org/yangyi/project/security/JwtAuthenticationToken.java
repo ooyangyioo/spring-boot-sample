@@ -7,22 +7,14 @@ import java.util.Collection;
 
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
-    /**
-     * 登录用户信息
-     */
     private final Object principal;
-
-    /**
-     * 密码
-     */
     private Object credentials;
 
     /**
-     * 创建一个未认证的授权令牌
-     * 传入的principal是用户名
+     * 创建一个未认证的 Token
      *
-     * @param principal
-     * @param credentials
+     * @param principal   身份信息
+     * @param credentials 密码信息
      */
     public JwtAuthenticationToken(Object principal, Object credentials) {
         super(null);
@@ -32,27 +24,38 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     /**
-     * 创建一个已认证的授权令牌
-     * 这个方法应该由AuthenticationProvider来调用
-     * 传入的principal为UserDetails
+     * 创建一个已认证的 Token
      *
-     * @param principal
-     * @param credentials
-     * @param authorities
+     * @param principal   身份信息
+     * @param credentials 密码信息
+     * @param authorities 权限信息
      */
-    public JwtAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
+    public JwtAuthenticationToken(Object principal, Object credentials,
+                                  Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
         this.credentials = credentials;
-        setAuthenticated(true);
+        super.setAuthenticated(true);
     }
 
+    @Override
     public Object getCredentials() {
-        return this.credentials;
+        return credentials;
     }
 
+    @Override
     public Object getPrincipal() {
-        return this.principal;
+        return principal;
     }
 
+    @Override
+    public void setAuthenticated(boolean authenticated) {
+        super.setAuthenticated(authenticated);
+    }
+
+    @Override
+    public void eraseCredentials() {
+        super.eraseCredentials();
+        this.credentials = null;
+    }
 }

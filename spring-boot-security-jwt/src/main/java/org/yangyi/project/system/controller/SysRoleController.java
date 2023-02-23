@@ -1,6 +1,7 @@
 package org.yangyi.project.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,8 +23,9 @@ public class SysRoleController {
     }
 
     @PostMapping("/query")
+    @PreAuthorize("hasRole('admin')")
     public ResponseVO query() {
-        return null;
+        return ResponseVO.success("query");
     }
 
     @PostMapping("/list")

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * JWT 过滤器
+ * 自定义JWT校验拦截器
  */
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
@@ -55,8 +55,9 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
             throw new AuthenticationServiceException("请提供密码");
         }
         //  创建未认证的凭证
-        JwtAuthenticationToken jwtAuthenticationToken = new JwtAuthenticationToken(username, password);
-        return this.getAuthenticationManager().authenticate(jwtAuthenticationToken);
+        JwtAuthenticationToken authRequest = new JwtAuthenticationToken(username, password);
+        setDetails(request, authRequest);
+        return this.getAuthenticationManager().authenticate(authRequest);
     }
 
     @Override
@@ -67,6 +68,10 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         this.getFailureHandler().onAuthenticationFailure(request, response, failed);
+    }
+
+    protected void setDetails(HttpServletRequest request, JwtAuthenticationToken authRequest) {
+        authRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
     }
 
     public final String getUsernameParameter() {

@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.yangyi.project.system.po.SysRole;
-import org.yangyi.project.system.po.SysUser;
 import org.yangyi.project.system.po.SysUserRole;
 import org.yangyi.project.system.service.ISysUserService;
 
@@ -19,7 +18,6 @@ import java.util.*;
 public class JdbcUserDetailsServiceImpl implements UserDetailsService {
 
     private static final Logger logger = LoggerFactory.getLogger(JdbcUserDetailsServiceImpl.class);
-
     private final ISysUserService sysUserService;
 
     @Autowired
@@ -40,15 +38,8 @@ public class JdbcUserDetailsServiceImpl implements UserDetailsService {
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         List<SysRole> sysRoleList = sysUserRole.getSysRoles();
-        sysRoleList.forEach(sysRole -> authorities.add(new SimpleGrantedAuthority(sysRole.getRoleKey())));
-        return new JwtUserDetails(
-                sysUserRole.getUserName(),
-                sysUserRole.getPassword(),
-                true,
-                false,
-                false,
-                false,
-                authorities);
+        sysRoleList.forEach(sysRole -> authorities.add(new SimpleGrantedAuthority(sysRole.getRoleKey().toUpperCase())));
+        return new JwtUserDetails(sysUserRole.getUserName(), sysUserRole.getPassword(), authorities);
     }
 
 }

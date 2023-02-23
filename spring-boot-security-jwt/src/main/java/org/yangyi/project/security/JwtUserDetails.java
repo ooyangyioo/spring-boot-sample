@@ -1,29 +1,26 @@
 package org.yangyi.project.security;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import java.io.Serializable;
+import java.util.*;
 
 public class JwtUserDetails implements UserDetails {
 
-    private String username;
+    private final String password;
 
-    private String password;
+    private final String username;
 
-    private boolean accountNonExpired;
+    private final Set<GrantedAuthority> authorities;
 
-    private boolean accountNonLocked;
+    private final boolean accountNonExpired;
 
-    private boolean credentialsNonExpired;
+    private final boolean accountNonLocked;
 
-    private boolean enabled;
+    private final boolean credentialsNonExpired;
 
-    private Collection<SimpleGrantedAuthority> authorities;
-
-    public JwtUserDetails() {
-    }
+    private final boolean enabled;
 
     /**
      * @param username              用户名
@@ -32,49 +29,27 @@ public class JwtUserDetails implements UserDetails {
      * @param accountNonExpired     账号是否过期
      * @param accountNonLocked      账号是否锁定
      * @param credentialsNonExpired 密码是否过期
+     * @param authorities           权限
      */
-    public JwtUserDetails(String username,
-                          String password,
-                          boolean enabled,
-                          boolean accountNonExpired,
-                          boolean accountNonLocked,
-                          boolean credentialsNonExpired,
-                          Collection<SimpleGrantedAuthority> authorities) {
+    public JwtUserDetails(String username, String password, boolean enabled, boolean accountNonExpired,
+                          boolean credentialsNonExpired, boolean accountNonLocked,
+                          Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
-        this.accountNonExpired = accountNonExpired;
-        this.accountNonLocked = accountNonLocked;
-        this.credentialsNonExpired = credentialsNonExpired;
         this.enabled = enabled;
-        this.authorities = authorities;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setAccountNonExpired(boolean accountNonExpired) {
         this.accountNonExpired = accountNonExpired;
-    }
-
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
         this.credentialsNonExpired = credentialsNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setAuthorities(Collection<SimpleGrantedAuthority> authorities) {
-        this.authorities = authorities;
+    /**
+     * @param username    用户名
+     * @param password    密码
+     * @param authorities 权限
+     */
+    public JwtUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        this(username, password, true, true, true, true, authorities);
     }
 
     @Override
@@ -110,6 +85,27 @@ public class JwtUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.enabled;
+    }
+
+    private static SortedSet<GrantedAuthority> sortAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        SortedSet<GrantedAuthority> sortedAuthorities = new TreeSet<>(new AuthorityComparator());
+        for (GrantedAuthority grantedAuthority : authorities) {
+            sortedAuthorities.add(grantedAuthority);
+        }
+        return sortedAuthorities;
+    }
+
+    private static class AuthorityComparator implements Comparator<GrantedAuthority>, Serializable {
+        @Override
+        public int compare(GrantedAuthority g1, GrantedAuthority g2) {
+            if (g2.getAuthority() == null) {
+                return -1;
+            }
+            if (g1.getAuthority() == null) {
+                return 1;
+            }
+            return g1.getAuthority().compareTo(g2.getAuthority());
+        }
     }
 
 }

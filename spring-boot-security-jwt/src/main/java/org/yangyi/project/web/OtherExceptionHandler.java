@@ -54,12 +54,16 @@ public class OtherExceptionHandler {
         return ResponseVO.failed("请重新登录");
     }
 
+    /**
+     * 由@PreAuthorize注解抛出的AccessDeniedException异常，不会被accessDeniedHandler捕获，而是会被全局异常捕获
+     * 如果想要被accessDeniedHandler捕获处理，需要在WebSecurityConfig中配置 antMatchers("/xxxxx").hasRole("XXX")
+     */
     @ExceptionHandler(value = AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     public ResponseVO accessDeniedException(Exception e) {
         log.warn(e.getMessage());
-        return ResponseVO.failed("不允许访问");
+        return ResponseVO.failed("无权限访问");
     }
 
     @ExceptionHandler(value = BusinessException.class)
