@@ -3,7 +3,7 @@ package org.yangyi.project.system.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.yangyi.project.system.dto.SignupDTO;
+import org.yangyi.project.system.dto.UserSignupDTO;
 import org.yangyi.project.system.service.ISysUserService;
 import org.yangyi.project.web.ResponseVO;
 
@@ -19,8 +19,8 @@ public class SysUserController {
     }
 
     @PostMapping("/signup")
-    public ResponseVO signup(@Validated @RequestBody SignupDTO signupDTO) {
-        return ResponseVO.success(sysUserService.userSignup(signupDTO));
+    public ResponseVO signup(@Validated @RequestBody UserSignupDTO userSignupDTO) {
+        return ResponseVO.success(sysUserService.userSignup(userSignupDTO));
     }
 
     @PostMapping("/info")

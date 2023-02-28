@@ -19,7 +19,6 @@ import org.yangyi.project.web.ResponseVO;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtLoginSuccessHandler jwtLoginSuccessHandler;
     private final JwtLoginFailureHandler jwtLoginFailureHandler;
     private final JwtAuthenticationProvider jwtAuthenticationProvider;
@@ -32,7 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthorizationFilter jwtAuthorizationFilter;
 
     public WebSecurityConfig(JwtAccessDeniedHandler jwtAccessDeniedHandler,
-                             JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
                              JwtLoginSuccessHandler jwtLoginSuccessHandler,
                              JwtLoginFailureHandler jwtLoginFailureHandler,
                              JwtAuthenticationProvider jwtAuthenticationProvider,
@@ -41,7 +39,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                              JwtLogoutSuccessHandler jwtLogoutSuccessHandler,
                              JwtSessionInformationExpiredStrategy jwtSessionInformationExpiredStrategy) {
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
-        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.jwtLoginSuccessHandler = jwtLoginSuccessHandler;
         this.jwtLoginFailureHandler = jwtLoginFailureHandler;
         this.jwtAuthenticationProvider = jwtAuthenticationProvider;
@@ -60,12 +57,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         jwtAuthenticationFilter.setFilterProcessesUrl("/user/login"); //  设置过滤器拦截地址
         jwtAuthenticationFilter.setAuthenticationSuccessHandler(jwtLoginSuccessHandler); //  成功结果处理器
         jwtAuthenticationFilter.setAuthenticationFailureHandler(jwtLoginFailureHandler); //  失败结果处理器
-
-        //  自定义JWT校验拦截器
-//        JwtAuthorizationFilter jwtAuthorizationFilter = new JwtAuthorizationFilter(authenticationManager(), (request, response, authException) -> {
-//            LOGGER.info("Token 验证失败：{}", authException.getMessage());
-//            ResponseUtil.unauthorizedResponse(response, ResponseVO.failed(authException.getMessage()));
-//        }, sysUserMapper);
 
         http.formLogin().disable(). //  禁用 UsernamePasswordAuthenticationFilter 过滤器
                 httpBasic().disable().  //  禁用  BasicAuthenticationFilter 过滤器
