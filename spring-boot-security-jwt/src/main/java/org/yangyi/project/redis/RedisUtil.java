@@ -1,4 +1,4 @@
-package org.yangyi.project.util;
+package org.yangyi.project.redis;
 
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,8 +18,6 @@ public class RedisUtil {
 
     /**
      * 删除key
-     *
-     * @param key
      */
     public void delete(String key) {
         redisTemplate.delete(key);
@@ -27,8 +25,6 @@ public class RedisUtil {
 
     /**
      * 批量删除key
-     *
-     * @param keys
      */
     public void delete(Collection<String> keys) {
         redisTemplate.delete(keys);
@@ -36,9 +32,6 @@ public class RedisUtil {
 
     /**
      * 序列化key
-     *
-     * @param key
-     * @return
      */
     public byte[] dump(String key) {
         return redisTemplate.dump(key);
@@ -46,9 +39,6 @@ public class RedisUtil {
 
     /**
      * 是否存在key
-     *
-     * @param key
-     * @return
      */
     public Boolean hasKey(String key) {
         return redisTemplate.hasKey(key);
@@ -56,11 +46,6 @@ public class RedisUtil {
 
     /**
      * 设置过期时间
-     *
-     * @param key
-     * @param timeout
-     * @param unit
-     * @return
      */
     public Boolean expire(String key, long timeout, TimeUnit unit) {
         return redisTemplate.expire(key, timeout, unit);
@@ -68,10 +53,6 @@ public class RedisUtil {
 
     /**
      * 设置过期时间
-     *
-     * @param key
-     * @param date
-     * @return
      */
     public Boolean expireAt(String key, Date date) {
         return redisTemplate.expireAt(key, date);
@@ -79,9 +60,6 @@ public class RedisUtil {
 
     /**
      * 查找匹配的key
-     *
-     * @param pattern
-     * @return
      */
     public Set<String> keys(String pattern) {
         return redisTemplate.keys(pattern);
@@ -89,10 +67,6 @@ public class RedisUtil {
 
     /**
      * 将当前数据库的 key 移动到给定的数据库 db 当中
-     *
-     * @param key
-     * @param dbIndex
-     * @return
      */
     public Boolean move(String key, int dbIndex) {
         return redisTemplate.move(key, dbIndex);
@@ -100,9 +74,6 @@ public class RedisUtil {
 
     /**
      * 移除 key 的过期时间，key 将持久保持
-     *
-     * @param key
-     * @return
      */
     public Boolean persist(String key) {
         return redisTemplate.persist(key);
@@ -110,10 +81,6 @@ public class RedisUtil {
 
     /**
      * 返回 key 的剩余的过期时间
-     *
-     * @param key
-     * @param unit
-     * @return
      */
     public Long getExpire(String key, TimeUnit unit) {
         return redisTemplate.getExpire(key, unit);
@@ -121,9 +88,6 @@ public class RedisUtil {
 
     /**
      * 返回 key 的剩余的过期时间
-     *
-     * @param key
-     * @return
      */
     public Long getExpire(String key) {
         return redisTemplate.getExpire(key);
@@ -131,8 +95,6 @@ public class RedisUtil {
 
     /**
      * 从当前数据库中随机返回一个 key
-     *
-     * @return
      */
     public String randomKey() {
         return redisTemplate.randomKey();
@@ -140,9 +102,6 @@ public class RedisUtil {
 
     /**
      * 修改 key 的名称
-     *
-     * @param oldKey
-     * @param newKey
      */
     public void rename(String oldKey, String newKey) {
         redisTemplate.rename(oldKey, newKey);
@@ -150,10 +109,6 @@ public class RedisUtil {
 
     /**
      * 仅当 newKey 不存在时，将 oldKey 改名为 newKey
-     *
-     * @param oldKey
-     * @param newKey
-     * @return
      */
     public Boolean renameIfAbsent(String oldKey, String newKey) {
         return redisTemplate.renameIfAbsent(oldKey, newKey);
@@ -161,9 +116,6 @@ public class RedisUtil {
 
     /**
      * 返回 key 所储存的值的类型
-     *
-     * @param key
-     * @return
      */
     public DataType type(String key) {
         return redisTemplate.type(key);
@@ -171,9 +123,6 @@ public class RedisUtil {
 
     /**
      * 设置指定 key 的值
-     *
-     * @param key
-     * @param value
      */
     public void set(String key, String value) {
         redisTemplate.opsForValue().set(key, value);
@@ -181,9 +130,6 @@ public class RedisUtil {
 
     /**
      * 获取指定 key 的值
-     *
-     * @param key
-     * @return
      */
     public Object get(String key) {
         return redisTemplate.opsForValue().get(key);

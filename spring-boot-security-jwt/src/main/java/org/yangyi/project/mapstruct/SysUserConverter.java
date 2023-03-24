@@ -4,13 +4,13 @@ import org.mapstruct.*;
 import org.yangyi.project.system.dto.UserSignupDTO;
 import org.yangyi.project.system.po.SysUser;
 
-@Mapper(
-        //  InjectionStrategy.CONSTRUCTOR 基于构造器注入
-        injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+/**
+ * InjectionStrategy.CONSTRUCTOR 基于构造器注入
+ */
+@Mapper(injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = "spring",
-        uses = {PasswordEncoderFormatter.class}
-)
+        uses = {PasswordEncoderFormatter.class})
 public interface SysUserConverter {
     @Mappings({
             @Mapping(source = "username", target = "userName"),

@@ -5,7 +5,7 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
     <!-- 日志文件位置 -->
-    <property name="logPath" value="C:/Users/YangYi/logs"/>
+    <property name="logPath" value="./logs"/>
     <!-- 日志最大的历史天 -->
     <property name="maxHistory" value="15"/>
     <property name="maxFileSize" value="100MB"/>
