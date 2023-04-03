@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
 
-public class MyEnvironmentPostProcessor implements EnvironmentPostProcessor {
+public class ExtraEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
     //  Properties对象
     private final Properties properties = new Properties();

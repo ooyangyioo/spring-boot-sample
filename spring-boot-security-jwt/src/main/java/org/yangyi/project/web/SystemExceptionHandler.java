@@ -17,9 +17,9 @@ import org.yangyi.project.exception.ServiceException;
 
 @RestControllerAdvice
 @Order(101)
-public class OtherExceptionHandler {
+public class SystemExceptionHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(OtherExceptionHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(SystemExceptionHandler.class);
 
 
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
@@ -68,8 +68,9 @@ public class OtherExceptionHandler {
 
     /**
      * 系统业务异常
+     *
      * @param e ServiceException
-     * @return
+     * @return 响应封装
      */
     @ExceptionHandler(value = ServiceException.class)
     @ResponseStatus(HttpStatus.OK)
