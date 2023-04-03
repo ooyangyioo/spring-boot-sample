@@ -1,8 +1,8 @@
-curl -X POST -H "Accept: application/json" -H "Content-type: application/json" 'http://localhost:8080/user/signup' -d '{"username":"yangyi","password":"yangyi126","email":"yangyi@163.com","phone":"15588888888"}'
+curl -X POST -H "Accept: application/json" -H "Content-type: application/json" 'http://localhost:8080/user/signup' -d '{"username":"admin","password":"yangyi126","email":"yangyi@163.com","phone":"15511111111"}'
 
 
-curl -X POST 'http://localhost:8080/user/login' --header "Content-Type: multipart/form-data" -F username=yangyi -F password=yangyi126
-curl -X POST 'http://localhost:8080/user/info?userId=670319205115109376' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NzcwNTMwODQsImV4cCI6MTY3NzEzOTQ4NCwiaWF0IjoxNjc3MDUzMDg0LCJ1c2VybmFtZSI6Inlhbmd5aSJ9.yeqymdssixpb1PYFdZSKzcp7CWqC3ld0yIaDGo444is'
+curl -X POST 'http://localhost:8080/user/login' --header "Content-Type: multipart/form-data" -F username=admin -F password=yangyi126
+curl -X POST 'http://localhost:8080/user/info?userId=167941641439678464' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2ODA0OTA2OTIsImV4cCI6MTY4MDU3NzA5MiwiaWF0IjoxNjgwNDkwNjkyLCJ1c2VybmFtZSI6ImFkbWluIn0.V3WW3wjZw-JfKxeBjmGIeXShJO6_R9p8-4US83JJHas'
 curl -X POST 'http://localhost:8080/role/add' -d '{"roleName":"超级管理员","roleKey":"admin","roleSort":1,"remark":"超级管理员"}' -H "Accept: application/json" -H "Content-type: application/json" -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NzcwNTMwODQsImV4cCI6MTY3NzEzOTQ4NCwiaWF0IjoxNjc3MDUzMDg0LCJ1c2VybmFtZSI6Inlhbmd5aSJ9.yeqymdssixpb1PYFdZSKzcp7CWqC3ld0yIaDGo444is'
 curl -X POST 'http://localhost:8080/role/query' -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NzcxMTk4OTIsImV4cCI6MTY3NzIwNjI5MiwiaWF0IjoxNjc3MTE5ODkyLCJ1c2VybmFtZSI6Inlhbmd5aSJ9.SLUHVrEYTWLtIoLf-pxAviUSZ1G9bkVLtQzSgaXJIr0'
 

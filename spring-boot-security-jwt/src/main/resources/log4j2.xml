@@ -2,7 +2,7 @@
 <Configuration>
     <Properties>
         <Property name="LOG_PATTERN">
-            %d{HH:mm:ss.SSS} [%X{X-B3-TraceId},%X{X-B3-SpanId}] [%t] %-5level %logger{36} - %msg%n
+            %d{yyyy-MM-dd HH:mm:ss.SSS} [%X{X-B3-TraceId},%X{X-B3-SpanId}] [%t] [%-5level] %l - %msg%n
         </Property>
     </Properties>
 

@@ -1,5 +1,6 @@
 package org.yangyi.project.security;
 
+import cn.hutool.core.collection.CollUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDecisionManager;
@@ -21,11 +22,16 @@ public class JwtAccessDecisionManager implements AccessDecisionManager {
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
         LOGGER.info("接口需要的权限：{}，用户拥有的权限：{}", configAttributes, authentication.getAuthorities());
+
+        // 当接口未被配置资源时直接放行
+        if (CollUtil.isEmpty(configAttributes)) {
+            return;
+        }
+
         for (Iterator<ConfigAttribute> iterator = configAttributes.iterator(); iterator.hasNext(); ) {
-            String needRole = iterator.next().getAttribute();
-            Collection<? extends GrantedAuthority> grantedAuthorities = authentication.getAuthorities();
-            for (GrantedAuthority authority : grantedAuthorities) {
-                if (authority.getAuthority().equals(needRole.trim())) {
+            String needAuthority = iterator.next().getAttribute();
+            for (GrantedAuthority authority : authentication.getAuthorities()) {
+                if (authority.getAuthority().equals(needAuthority.trim())) {
                     return;
                 }
             }

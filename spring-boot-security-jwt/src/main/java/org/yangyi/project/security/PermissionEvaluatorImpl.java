@@ -33,18 +33,19 @@ public class PermissionEvaluatorImpl implements PermissionEvaluator {
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         for (GrantedAuthority authority : authorities) {
             List<SysMenu> sysMenus = ((UrlGrantedAuthority) authority).getSysMenus();
-            for (SysMenu sysMenu : sysMenus) {
+//            for (SysMenu sysMenu : sysMenus) {
 //                if (antPathMatcher.match(sysMenu.getMenuUrl(), (String) targetDomainObject) &&
-//                        (StringUtils.equals(sysMenu.getMenuTag(), (String) permission) || StringUtils.equals(sysMenu.getMenuTag(), "*")))
+//                        (StringUtils.equals(sysMenu.getMenuTag(), (String) permission) ||
+//                                StringUtils.equals(sysMenu.getMenuTag(), "*")))
 //                    return true;
-            }
+//            }
         }
         return true;
     }
 
     @Override
     public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
-        return true;
+        return false;
     }
 
 }

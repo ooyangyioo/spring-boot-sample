@@ -5,6 +5,7 @@ import org.yangyi.project.mybatis.IdType;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class SysUser implements Serializable {
 
@@ -31,11 +32,11 @@ public class SysUser implements Serializable {
 
     private String createBy;
 
-    private LocalDateTime createTime;
+    private Date createTime;
 
     private String updateBy;
 
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     private String remark;
 
@@ -129,11 +130,11 @@ public class SysUser implements Serializable {
         this.createBy = createBy == null ? null : createBy.trim();
     }
 
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -145,11 +146,11 @@ public class SysUser implements Serializable {
         this.updateBy = updateBy == null ? null : updateBy.trim();
     }
 
-    public LocalDateTime getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(LocalDateTime updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 

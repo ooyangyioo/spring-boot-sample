@@ -38,7 +38,7 @@ public class JdbcUserDetailsServiceImpl implements UserDetailsService {
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         List<SysRole> sysRoleList = sysUserRole.getSysRoles();
-        sysRoleList.forEach(sysRole -> authorities.add(new SimpleGrantedAuthority(sysRole.getRoleKey().toUpperCase())));
+        sysRoleList.forEach(sysRole -> authorities.add(new SimpleGrantedAuthority(sysRole.getRoleKey())));
         return new JwtUserDetails(sysUserRole.getUserName(), sysUserRole.getPassword(), authorities);
     }
 

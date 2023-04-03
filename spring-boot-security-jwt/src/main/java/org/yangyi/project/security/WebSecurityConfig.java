@@ -4,13 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.expression.SecurityExpressionOperations;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
+import org.springframework.security.web.access.expression.WebSecurityExpressionRoot;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.yangyi.project.web.ApiResponseUtil;
 import org.yangyi.project.web.ApiResponseVO;
@@ -104,9 +108,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/static/**");
-        web.ignoring().antMatchers("/favicon.ico");
+    public void configure(WebSecurity webSecurity) throws Exception {
+        webSecurity.ignoring().antMatchers("/static/**");
+        webSecurity.ignoring().antMatchers("/favicon.ico");
+
+        /**
+         * 去除SpringSecurity中默认的权限ROLE_前缀
+         * ROLE_前缀需要数据库中就存在或者查询用户的时候加上，否则在使用hasRole的时候无法识别
+         * 或者使用 {@link MethodSecurityConfig#grantedAuthorityDefaults()}
+         */
+//        webSecurity.expressionHandler(new DefaultWebSecurityExpressionHandler() {
+//            @Override
+//            protected SecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication, FilterInvocation fi) {
+//                WebSecurityExpressionRoot root = (WebSecurityExpressionRoot) super.createSecurityExpressionRoot(authentication, fi);
+//                // 去除默认的ROLE_前缀
+//                root.setDefaultRolePrefix("");
+//                return root;
+//            }
+//        });
     }
 
     @Bean(name = "myWebSecurityExpressionHandler")

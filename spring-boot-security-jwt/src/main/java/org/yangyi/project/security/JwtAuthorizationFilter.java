@@ -4,6 +4,7 @@ import cn.hutool.core.exceptions.ValidateException;
 import cn.hutool.jwt.JWT;
 import cn.hutool.jwt.JWTUtil;
 import cn.hutool.jwt.JWTValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.CredentialsExpiredException;
@@ -32,9 +33,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     public static final String AUTHENTICATION_SCHEME_BEARER = "Bearer ";
 
-    private AuthenticationEntryPoint authenticationEntryPoint;
-    private ISysUserService sysUserService;
+    private final AuthenticationEntryPoint authenticationEntryPoint;
+    private final ISysUserService sysUserService;
 
+    @Autowired
     public JwtAuthorizationFilter(AuthenticationEntryPoint authenticationEntryPoint,
                                   ISysUserService sysUserService) {
         this.authenticationEntryPoint = authenticationEntryPoint;
