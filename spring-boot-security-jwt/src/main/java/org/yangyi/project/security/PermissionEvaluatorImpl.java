@@ -32,7 +32,7 @@ public class PermissionEvaluatorImpl implements PermissionEvaluator {
         User user = (User) authentication.getPrincipal();
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         for (GrantedAuthority authority : authorities) {
-            List<SysMenu> sysMenus = ((UrlGrantedAuthority) authority).getSysMenus();
+//            List<SysMenu> sysMenus = ((UrlGrantedAuthority) authority).getSysMenus();
 //            for (SysMenu sysMenu : sysMenus) {
 //                if (antPathMatcher.match(sysMenu.getMenuUrl(), (String) targetDomainObject) &&
 //                        (StringUtils.equals(sysMenu.getMenuTag(), (String) permission) ||

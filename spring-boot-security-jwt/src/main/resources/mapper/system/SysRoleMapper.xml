@@ -16,6 +16,11 @@
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
     </resultMap>
 
+    <resultMap id="SysRoleMenuResultMap" type="org.yangyi.project.system.po.SysRoleMenu" extends="SysRoleResultMap">
+        <collection property="sysMenus" column="{roleId = role_id}" ofType="org.yangyi.project.system.po.SysMenu"
+                    javaType="ArrayList" select="org.yangyi.project.system.dao.SysMenuMapper.selectRoleMenus"/>
+    </resultMap>
+
     <sql id="BaseColumnList">
         role_id
         , role_name, role_key, role_sort, status, del_flag, create_by, create_time,
@@ -139,6 +144,12 @@
         from sys_role sr
                  left join sys_user_role sur on sur.role_id = sr.role_id
         where sur.user_id = #{userId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectRoleWithMenu" resultMap="SysRoleMenuResultMap">
+        select *
+        from sys_role
+        where role_id = #{roleId,jdbcType=BIGINT}
     </select>
 
 </mapper>

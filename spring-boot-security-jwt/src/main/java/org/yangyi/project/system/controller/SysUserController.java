@@ -25,22 +25,31 @@ public class SysUserController {
     }
 
     @PostMapping("/info")
-//    @PreAuthorize("hasRole('admin')")
-//    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasRole('admin')")
     public ApiResponseVO info(@RequestParam(required = false) String userId) {
         return ApiResponseVO.success(userId);
     }
 
     /**
      * 删除用户，使用自定义校验方法
-     *
-     * @param userId
-     * @return 响应封装
-     * @see {@link org.yangyi.project.security.JwtExpression}
      */
-    @PreAuthorize("@ex.hasAuthority('dd')")
+    @PostMapping("/delete")
+    @PreAuthorize("@ex.hasRole('admin1')")
     public ApiResponseVO delete(@RequestParam String userId) {
-        return null;
+        return ApiResponseVO.success(userId);
+    }
+
+    @PostMapping("/update")
+    @PreAuthorize("hasAuthority('admin')")
+    public ApiResponseVO update(@RequestParam String userId) {
+        return ApiResponseVO.success(userId);
+    }
+
+    @PostMapping("/resetPwd")
+//    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAnyRole('admin')")
+    public ApiResponseVO resetPassword(@RequestParam String userId) {
+        return ApiResponseVO.success(userId);
     }
 
 }

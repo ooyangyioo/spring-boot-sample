@@ -3,7 +3,6 @@ package org.yangyi.project.system.po;
 import org.yangyi.project.mybatis.AutoId;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class SysMenu implements Serializable {
@@ -22,10 +21,6 @@ public class SysMenu implements Serializable {
     private String component;
 
     private String query;
-
-    private Integer isFrame;
-
-    private Integer isCache;
 
     private String menuType;
 
@@ -103,22 +98,6 @@ public class SysMenu implements Serializable {
 
     public void setQuery(String query) {
         this.query = query == null ? null : query.trim();
-    }
-
-    public Integer getIsFrame() {
-        return isFrame;
-    }
-
-    public void setIsFrame(Integer isFrame) {
-        this.isFrame = isFrame;
-    }
-
-    public Integer getIsCache() {
-        return isCache;
-    }
-
-    public void setIsCache(Integer isCache) {
-        this.isCache = isCache;
     }
 
     public String getMenuType() {

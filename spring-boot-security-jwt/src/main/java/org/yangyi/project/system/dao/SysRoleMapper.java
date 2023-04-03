@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.yangyi.project.system.po.SysRole;
+import org.yangyi.project.system.po.SysRoleMenu;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface SysRoleMapper {
     int update(SysRole row);
 
     List<SysRole> selectUserRoles(@Param("userId") Long userId);
+
+    SysRoleMenu selectRoleWithMenu(@Param("roleId") Long roleId);
 }

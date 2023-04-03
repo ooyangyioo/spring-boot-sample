@@ -4,7 +4,6 @@ import org.yangyi.project.mybatis.AutoId;
 import org.yangyi.project.mybatis.IdType;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class SysUser implements Serializable {

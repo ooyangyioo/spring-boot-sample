@@ -3,7 +3,6 @@ package org.yangyi.project.system.po;
 import org.yangyi.project.mybatis.AutoId;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class SysRole implements Serializable {

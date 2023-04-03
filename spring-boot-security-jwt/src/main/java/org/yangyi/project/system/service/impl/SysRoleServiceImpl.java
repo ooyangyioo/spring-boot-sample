@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.yangyi.project.system.dao.SysRoleMapper;
 import org.yangyi.project.system.dto.RoleAddDTO;
 import org.yangyi.project.system.po.SysRole;
+import org.yangyi.project.system.po.SysRoleMenu;
 import org.yangyi.project.system.service.ISysRoleService;
 
 @Service
@@ -41,5 +42,10 @@ public class SysRoleServiceImpl implements ISysRoleService {
     @Override
     public void remove() {
 
+    }
+
+    @Override
+    public SysRoleMenu roleWithMenu(Long roleId) {
+        return this.sysRoleMapper.selectRoleWithMenu(roleId);
     }
 }

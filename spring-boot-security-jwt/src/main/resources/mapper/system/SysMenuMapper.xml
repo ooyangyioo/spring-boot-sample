@@ -214,4 +214,11 @@
         where menu_id = #{menuId,jdbcType=BIGINT}
     </update>
 
+    <select id="selectRoleMenus" resultMap="SysMenuResultMap">
+        select sm.*
+        from sys_menu sm
+                 left join sys_role_menu srm on srm.menu_id = sm.menu_id
+        where srm.role_id = #{roleId,jdbcType=BIGINT}
+    </select>
+
 </mapper>

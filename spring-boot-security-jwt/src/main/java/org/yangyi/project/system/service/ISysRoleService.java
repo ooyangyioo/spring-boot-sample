@@ -1,6 +1,7 @@
 package org.yangyi.project.system.service;
 
 import org.yangyi.project.system.dto.RoleAddDTO;
+import org.yangyi.project.system.po.SysRoleMenu;
 
 public interface ISysRoleService {
 
@@ -13,5 +14,7 @@ public interface ISysRoleService {
     void edit();
 
     void remove();
+
+    SysRoleMenu roleWithMenu(Long roleId);
 
 }

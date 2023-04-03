@@ -8,13 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.CredentialsExpiredException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.yangyi.project.system.po.SysMenu;
+import org.yangyi.project.system.po.SysRoleMenu;
 import org.yangyi.project.system.po.SysUserRole;
+import org.yangyi.project.system.service.ISysRoleService;
 import org.yangyi.project.system.service.ISysUserService;
 
 import javax.servlet.FilterChain;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Token有效性验证拦截器
@@ -32,15 +35,17 @@ import java.util.Collection;
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     public static final String AUTHENTICATION_SCHEME_BEARER = "Bearer ";
-
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final ISysUserService sysUserService;
+    private final ISysRoleService sysRoleService;
 
     @Autowired
     public JwtAuthorizationFilter(AuthenticationEntryPoint authenticationEntryPoint,
-                                  ISysUserService sysUserService) {
+                                  ISysUserService sysUserService,
+                                  ISysRoleService sysRoleService) {
         this.authenticationEntryPoint = authenticationEntryPoint;
         this.sysUserService = sysUserService;
+        this.sysRoleService = sysRoleService;
     }
 
     @Override
@@ -71,8 +76,16 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         JWT jwt = JWTUtil.parseToken(token);
         String username = jwt.getPayload("username").toString();
         SysUserRole sysUser = sysUserService.userWithRole(username);
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        sysUser.getSysRoles().forEach(sysRole -> authorities.add(new SimpleGrantedAuthority(sysRole.getRoleKey())));
+        Collection<UrlGrantedAuthority> authorities = new ArrayList<>();
+        sysUser.getSysRoles().forEach(sysRole -> {
+            SysRoleMenu sysRoleMenu = sysRoleService.roleWithMenu(sysRole.getRoleId());
+            List<String> permissions = new ArrayList<>();
+            List<SysMenu> sysMenus = sysRoleMenu.getSysMenus();
+            sysMenus.forEach(sysMenu -> {
+                permissions.add(sysMenu.getPerms());
+            });
+            authorities.add(new UrlGrantedAuthority(sysRoleMenu.getRoleKey(), permissions));
+        });
         SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(sysUser.getUserName(), sysUser.getPassword(), authorities));
         filterChain.doFilter(request, response);
     }
