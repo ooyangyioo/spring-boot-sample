@@ -95,6 +95,25 @@
             <artifactId>reflections</artifactId>
             <version>${reflections.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+            <version>12.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-jackson</artifactId>
+            <version>12.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-slf4j</artifactId>
+            <version>12.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>

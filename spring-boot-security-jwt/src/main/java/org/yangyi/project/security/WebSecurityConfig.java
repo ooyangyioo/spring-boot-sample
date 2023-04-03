@@ -1,7 +1,9 @@
 package org.yangyi.project.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.yangyi.project.web.ResponseUtil;
 import org.yangyi.project.web.ResponseVO;
@@ -26,6 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAccessDecisionManager jwtAccessDecisionManager;
     private final JwtLogoutSuccessHandler jwtLogoutSuccessHandler;
     private final JwtSessionInformationExpiredStrategy jwtSessionInformationExpiredStrategy;
+
+    @Autowired
+    private PermissionEvaluatorImpl permissionEvaluator;
 
     @Autowired
     private JwtAuthorizationFilter jwtAuthorizationFilter;
@@ -82,6 +88,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(jwtAccessDeniedHandler)   //  认证过的用户访问无权限资源的异常处理
                 .and().cors().and().csrf().disable();
 
+        http.authorizeRequests().expressionHandler(webSecurityExpressionHandler());
+
         /**
          * 登出设置
          */
@@ -101,6 +109,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/static/**");
         web.ignoring().antMatchers("/favicon.ico");
+    }
+
+    @Bean(name = "myWebSecurityExpressionHandler")
+    public DefaultWebSecurityExpressionHandler webSecurityExpressionHandler() {
+        DefaultWebSecurityExpressionHandler webSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
+        webSecurityExpressionHandler.setPermissionEvaluator(permissionEvaluator);
+        return webSecurityExpressionHandler;
     }
 
 }

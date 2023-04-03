@@ -2,6 +2,7 @@ package org.yangyi.project.system.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.yangyi.project.system.dto.UserSignupDTO;
 import org.yangyi.project.system.po.SysUser;
 import org.yangyi.project.system.po.SysUserRole;
 import org.yangyi.project.system.service.ISysUserService;
+import org.yangyi.project.system.vo.SysUserVO;
 
 import java.util.Objects;
 
@@ -31,12 +33,15 @@ public class SysUserServiceImpl implements ISysUserService {
     }
 
     @Override
-    public SysUser userSignup(UserSignupDTO userSignupDTO) {
+    public SysUserVO userSignup(UserSignupDTO userSignupDTO) {
         if (!Objects.isNull(this.sysUserMapper.selectByUserName(userSignupDTO.getUsername())))
             throw new BusinessException("账号已存在");
         SysUser sysUser = sysUserConverter.convert(userSignupDTO);
+
+        SysUserVO sysUserVO = new SysUserVO();
+        BeanUtils.copyProperties(sysUser, sysUserVO);
         int result = sysUserMapper.insert(sysUser);
-        return sysUser;
+        return sysUserVO;
     }
 
     @Override

@@ -13,13 +13,11 @@ public class SysUser implements Serializable {
 
     private String userName;
 
-    private Long deptId;
-
     private String nickName;
 
     private String email;
 
-    private String phoneNumber;
+    private String phone;
 
     private String sex;
 
@@ -30,10 +28,6 @@ public class SysUser implements Serializable {
     private String status;
 
     private String delFlag;
-
-    private String loginIp;
-
-    private LocalDateTime loginDate;
 
     private String createBy;
 
@@ -63,14 +57,6 @@ public class SysUser implements Serializable {
         this.userName = userName == null ? null : userName.trim();
     }
 
-    public Long getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Long deptId) {
-        this.deptId = deptId;
-    }
-
     public String getNickName() {
         return nickName;
     }
@@ -87,12 +73,12 @@ public class SysUser implements Serializable {
         this.email = email == null ? null : email.trim();
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber == null ? null : phoneNumber.trim();
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getSex() {
@@ -133,22 +119,6 @@ public class SysUser implements Serializable {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag == null ? null : delFlag.trim();
-    }
-
-    public String getLoginIp() {
-        return loginIp;
-    }
-
-    public void setLoginIp(String loginIp) {
-        this.loginIp = loginIp == null ? null : loginIp.trim();
-    }
-
-    public LocalDateTime getLoginDate() {
-        return loginDate;
-    }
-
-    public void setLoginDate(LocalDateTime loginDate) {
-        this.loginDate = loginDate;
     }
 
     public String getCreateBy() {

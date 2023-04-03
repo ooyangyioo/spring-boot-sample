@@ -5,17 +5,14 @@
     <resultMap id="SysUserResultMap" type="org.yangyi.project.system.po.SysUser">
         <id column="user_id" jdbcType="BIGINT" property="userId"/>
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
-        <result column="dept_id" jdbcType="BIGINT" property="deptId"/>
         <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="sex" jdbcType="CHAR" property="sex"/>
         <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="status" jdbcType="CHAR" property="status"/>
         <result column="del_flag" jdbcType="CHAR" property="delFlag"/>
-        <result column="login_ip" jdbcType="VARCHAR" property="loginIp"/>
-        <result column="login_date" jdbcType="TIMESTAMP" property="loginDate"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
@@ -30,13 +27,13 @@
 
     <sql id="BaseColumnList">
         user_id
-        , dept_id, user_name, nick_name, email, phone_number, sex, avatar,
-    password, status, del_flag, login_ip, login_date, create_by, create_time, update_by, 
-    update_time, remark
+        , user_name, nick_name, email, phone, sex, avatar,
+    password, status, del_flag, create_by, create_time, update_by, update_time, remark
     </sql>
 
     <select id="selectUserWithRoles" resultMap="SysUserRoleResultMap">
-        select * from sys_user
+        select *
+        from sys_user
         where user_name = #{userName,jdbcType=VARCHAR}
     </select>
 
@@ -45,9 +42,6 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userId != null">
                 user_id,
-            </if>
-            <if test="deptId != null">
-                dept_id,
             </if>
             <if test="userName != null">
                 user_name,
@@ -58,8 +52,8 @@
             <if test="email != null">
                 email,
             </if>
-            <if test="phoneNumber != null">
-                phone_number,
+            <if test="phone != null">
+                phone,
             </if>
             <if test="sex != null">
                 sex,
@@ -75,12 +69,6 @@
             </if>
             <if test="delFlag != null">
                 del_flag,
-            </if>
-            <if test="loginIp != null">
-                login_ip,
-            </if>
-            <if test="loginDate != null">
-                login_date,
             </if>
             <if test="createBy != null">
                 create_by,
@@ -102,9 +90,6 @@
             <if test="userId != null">
                 #{userId,jdbcType=BIGINT},
             </if>
-            <if test="deptId != null">
-                #{deptId,jdbcType=BIGINT},
-            </if>
             <if test="userName != null">
                 #{userName,jdbcType=VARCHAR},
             </if>
@@ -114,8 +99,8 @@
             <if test="email != null">
                 #{email,jdbcType=VARCHAR},
             </if>
-            <if test="phoneNumber != null">
-                #{phoneNumber,jdbcType=VARCHAR},
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
             </if>
             <if test="sex != null">
                 #{sex,jdbcType=CHAR},
@@ -131,12 +116,6 @@
             </if>
             <if test="delFlag != null">
                 #{delFlag,jdbcType=CHAR},
-            </if>
-            <if test="loginIp != null">
-                #{loginIp,jdbcType=VARCHAR},
-            </if>
-            <if test="loginDate != null">
-                #{loginDate,jdbcType=TIMESTAMP},
             </if>
             <if test="createBy != null">
                 #{createBy,jdbcType=VARCHAR},
@@ -159,9 +138,6 @@
     <update id="update" parameterType="org.yangyi.project.system.po.SysUser">
         update sys_user
         <set>
-            <if test="deptId != null">
-                dept_id = #{deptId,jdbcType=BIGINT},
-            </if>
             <if test="userName != null">
                 user_name = #{userName,jdbcType=VARCHAR},
             </if>
@@ -171,8 +147,8 @@
             <if test="email != null">
                 email = #{email,jdbcType=VARCHAR},
             </if>
-            <if test="phoneNumber != null">
-                phone_number = #{phoneNumber,jdbcType=VARCHAR},
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
             </if>
             <if test="sex != null">
                 sex = #{sex,jdbcType=CHAR},
@@ -188,12 +164,6 @@
             </if>
             <if test="delFlag != null">
                 del_flag = #{delFlag,jdbcType=CHAR},
-            </if>
-            <if test="loginIp != null">
-                login_ip = #{loginIp,jdbcType=VARCHAR},
-            </if>
-            <if test="loginDate != null">
-                login_date = #{loginDate,jdbcType=TIMESTAMP},
             </if>
             <if test="createBy != null">
                 create_by = #{createBy,jdbcType=VARCHAR},

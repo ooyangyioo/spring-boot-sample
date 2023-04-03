@@ -17,7 +17,7 @@ public interface SysUserConverter {
             @Mapping(target = "password", qualifiedByName = "encryption"),
             @Mapping(target = "nickName", source = "username"),
             @Mapping(target = "email", source = "email"),
-            @Mapping(target = "phoneNumber", source = "phone")
+            @Mapping(target = "phone", source = "phone")
     })
     SysUser convert(UserSignupDTO userSignupDTO);
 }
