@@ -11,7 +11,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class CustomErrorController implements ErrorController {
+public class WebErrorController implements ErrorController {
 
     @RequestMapping(value = "/error")
     @ResponseBody
@@ -30,7 +30,7 @@ public class CustomErrorController implements ErrorController {
                 message = "预期外错误";
                 break;
         }
-        return new ResponseEntity(ResponseVO.failed(message), httpStatus);
+        return new ResponseEntity(ApiResponseVO.failed(message), httpStatus);
     }
 
 }

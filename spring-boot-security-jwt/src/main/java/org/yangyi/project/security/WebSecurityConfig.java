@@ -3,9 +3,7 @@ package org.yangyi.project.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -14,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.yangyi.project.web.ResponseUtil;
-import org.yangyi.project.web.ResponseVO;
+import org.yangyi.project.web.ApiResponseUtil;
+import org.yangyi.project.web.ApiResponseVO;
 
 @Configuration
 @EnableWebSecurity
@@ -84,7 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //  禁用session
 //                .sessionManagement().maximumSessions(1).  //  同一账号同时登录最大用户数
 //                expiredSessionStrategy(jwtSessionInformationExpiredStrategy)  //  会话信息过期策略
-                .and().exceptionHandling().authenticationEntryPoint((request, response, authException) -> ResponseUtil.unauthorizedResponse(response, ResponseVO.failed("请登录"))) //  用户访问无权限资源的异常处理
+                .and().exceptionHandling().authenticationEntryPoint((request, response, authException) -> ApiResponseUtil.unauthorizedResponse(response, ApiResponseVO.failed("请登录"))) //  用户访问无权限资源的异常处理
                 .accessDeniedHandler(jwtAccessDeniedHandler)   //  认证过的用户访问无权限资源的异常处理
                 .and().cors().and().csrf().disable();
 

@@ -3,36 +3,36 @@ package org.yangyi.project.web;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseVO {
+public class ApiResponseVO {
 
     private String code;
     private String message;
     private Object data;
 
-    public ResponseVO(String code, String message) {
+    public ApiResponseVO(String code, String message) {
         this(code, message, null);
     }
 
-    public ResponseVO(String code, String message, Object data) {
+    public ApiResponseVO(String code, String message, Object data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public static ResponseVO success(Object data) {
-        return new ResponseVO("1", "成功", data);
+    public static ApiResponseVO success(Object data) {
+        return new ApiResponseVO("1", "成功", data);
     }
 
-    public static ResponseVO success(String message) {
-        return new ResponseVO("1", message, null);
+    public static ApiResponseVO success(String message) {
+        return new ApiResponseVO("1", message, null);
     }
 
-    public static ResponseVO failed(Object data) {
-        return new ResponseVO("0", "失败", data);
+    public static ApiResponseVO failed(Object data) {
+        return new ApiResponseVO("0", "失败", data);
     }
 
-    public static ResponseVO failed(String message) {
-        return new ResponseVO("0", message, null);
+    public static ApiResponseVO failed(String message) {
+        return new ApiResponseVO("0", message, null);
     }
 
     public String getCode() {

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.yangyi.project.system.dto.MenuAddDTO;
 import org.yangyi.project.system.service.ISysMenuService;
-import org.yangyi.project.web.ResponseVO;
+import org.yangyi.project.web.ApiResponseVO;
 
 @RestController
 @RequestMapping("/menu")
@@ -22,28 +22,28 @@ public class SysMenuController {
     }
 
     @PostMapping("/query")
-    public ResponseVO query() {
+    public ApiResponseVO query() {
         return null;
     }
 
     @PostMapping("/list")
-    public ResponseVO list() {
+    public ApiResponseVO list() {
         return null;
     }
 
     @PostMapping("/add")
-    public ResponseVO add(@RequestBody @Validated MenuAddDTO menuAddDTO) {
+    public ApiResponseVO add(@RequestBody @Validated MenuAddDTO menuAddDTO) {
 
         return null;
     }
 
     @PostMapping("/edit")
-    public ResponseVO edit() {
+    public ApiResponseVO edit() {
         return null;
     }
 
     @PostMapping("/remove")
-    public ResponseVO remove() {
+    public ApiResponseVO remove() {
         return null;
     }
 

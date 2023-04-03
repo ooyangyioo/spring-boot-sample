@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.yangyi.project.system.dto.RoleAddDTO;
 import org.yangyi.project.system.service.ISysRoleService;
-import org.yangyi.project.web.ResponseVO;
+import org.yangyi.project.web.ApiResponseVO;
 
 @RestController
 @RequestMapping("/role")
@@ -24,28 +24,28 @@ public class SysRoleController {
 
     @PostMapping("/query")
     @PreAuthorize("hasRole('admin')")
-    public ResponseVO query() {
-        return ResponseVO.success("query");
+    public ApiResponseVO query() {
+        return ApiResponseVO.success("query");
     }
 
     @PostMapping("/list")
-    public ResponseVO list() {
+    public ApiResponseVO list() {
         return null;
     }
 
     @PostMapping("/add")
-    public ResponseVO add(@RequestBody @Validated RoleAddDTO roleAddDTO) {
+    public ApiResponseVO add(@RequestBody @Validated RoleAddDTO roleAddDTO) {
         this.sysRoleService.add(roleAddDTO);
         return null;
     }
 
     @PostMapping("/edit")
-    public ResponseVO edit() {
+    public ApiResponseVO edit() {
         return null;
     }
 
     @PostMapping("/remove")
-    public ResponseVO remove() {
+    public ApiResponseVO remove() {
         return null;
     }
 

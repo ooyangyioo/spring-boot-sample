@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
-import org.yangyi.project.web.ResponseUtil;
-import org.yangyi.project.web.ResponseVO;
+import org.yangyi.project.web.ApiResponseUtil;
+import org.yangyi.project.web.ApiResponseVO;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ public class JwtLoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         LOGGER.warn("登录失败：{}", exception.getMessage());
-        ResponseUtil.unauthorizedResponse(response, ResponseVO.failed(exception.getMessage()));
+        ApiResponseUtil.unauthorizedResponse(response, ApiResponseVO.failed(exception.getMessage()));
     }
 
 }

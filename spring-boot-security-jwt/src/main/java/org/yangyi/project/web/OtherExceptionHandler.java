@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.yangyi.project.exception.BusinessException;
+import org.yangyi.project.exception.ServiceException;
 
 @RestControllerAdvice
 @Order(101)
@@ -25,33 +25,33 @@ public class OtherExceptionHandler {
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ResponseVO missingServletRequestParameterException(Exception e) {
+    public ApiResponseVO missingServletRequestParameterException(Exception e) {
         log.warn("用户请求异常：{}", e.getMessage());
-        return ResponseVO.failed("参数缺失");
+        return ApiResponseVO.failed("参数缺失");
     }
 
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ResponseBody
-    public ResponseVO httpRequestMethodNotSupportedException(Exception e) {
+    public ApiResponseVO httpRequestMethodNotSupportedException(Exception e) {
         log.warn("用户请求异常：{}", e.getMessage());
-        return ResponseVO.failed("请使用POST请求");
+        return ApiResponseVO.failed("请使用POST请求");
     }
 
     @ExceptionHandler(value = HttpMediaTypeNotSupportedException.class)
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     @ResponseBody
-    public ResponseVO httpMediaTypeNotSupportedException(Exception e) {
+    public ApiResponseVO httpMediaTypeNotSupportedException(Exception e) {
         log.warn("用户请求异常：{}", e.getMessage());
-        return ResponseVO.failed("请使用JSON格式请求");
+        return ApiResponseVO.failed("请使用JSON格式请求");
     }
 
     @ExceptionHandler(value = BadCredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
-    public ResponseVO badCredentialsException(Exception e) {
+    public ApiResponseVO badCredentialsException(Exception e) {
         log.warn(e.getMessage());
-        return ResponseVO.failed("请重新登录");
+        return ApiResponseVO.failed("请重新登录");
     }
 
     /**
@@ -61,24 +61,29 @@ public class OtherExceptionHandler {
     @ExceptionHandler(value = AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
-    public ResponseVO accessDeniedException(Exception e) {
+    public ApiResponseVO accessDeniedException(Exception e) {
         log.warn(e.getMessage());
-        return ResponseVO.failed("无权限访问");
+        return ApiResponseVO.failed("无权限访问");
     }
 
-    @ExceptionHandler(value = BusinessException.class)
+    /**
+     * 系统业务异常
+     * @param e ServiceException
+     * @return
+     */
+    @ExceptionHandler(value = ServiceException.class)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseVO BusinessException(Exception e) {
-        return ResponseVO.failed(e.getMessage());
+    public ApiResponseVO BusinessException(Exception e) {
+        return ApiResponseVO.failed(e.getMessage());
     }
 
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public ResponseVO exception(Exception e) {
+    public ApiResponseVO exception(Exception e) {
         log.error("系统错误", e);
-        return ResponseVO.failed("系统错误，请联系管理员");
+        return ApiResponseVO.failed("系统错误，请联系管理员");
     }
 
 }

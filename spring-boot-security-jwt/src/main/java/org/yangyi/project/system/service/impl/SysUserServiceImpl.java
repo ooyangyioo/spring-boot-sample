@@ -6,7 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.yangyi.project.exception.BusinessException;
+import org.yangyi.project.exception.ServiceException;
 import org.yangyi.project.mapstruct.SysUserConverter;
 import org.yangyi.project.system.dao.SysUserMapper;
 import org.yangyi.project.system.dto.UserSignupDTO;
@@ -35,7 +35,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public SysUserVO userSignup(UserSignupDTO userSignupDTO) {
         if (!Objects.isNull(this.sysUserMapper.selectByUserName(userSignupDTO.getUsername())))
-            throw new BusinessException("账号已存在");
+            throw new ServiceException("账号已存在");
         SysUser sysUser = sysUserConverter.convert(userSignupDTO);
 
         SysUserVO sysUserVO = new SysUserVO();

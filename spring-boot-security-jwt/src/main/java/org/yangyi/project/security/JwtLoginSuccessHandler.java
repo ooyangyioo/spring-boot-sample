@@ -7,8 +7,8 @@ import cn.hutool.jwt.signers.JWTSignerUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import org.yangyi.project.web.ResponseUtil;
-import org.yangyi.project.web.ResponseVO;
+import org.yangyi.project.web.ApiResponseUtil;
+import org.yangyi.project.web.ApiResponseVO;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +37,7 @@ public class JwtLoginSuccessHandler implements AuthenticationSuccessHandler {
             put(JWTPayload.EXPIRES_AT, DateUtil.offsetDay(signDate,1));
             put("username", jwtUserDetails.getUsername());
         }}, JWTSignerUtil.hs256("123456".getBytes()));
-        ResponseUtil.okResponse(response, ResponseVO.success(token));
+        ApiResponseUtil.okResponse(response, ApiResponseVO.success(token));
     }
 
 }

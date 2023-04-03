@@ -31,14 +31,14 @@ public class ValidationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
     @ResponseBody
-    public ResponseVO bindExceptionHandler(BindException e) {
+    public ApiResponseVO bindExceptionHandler(BindException e) {
         String msg = e.getBindingResult().getFieldErrors()
                 .stream()
                 .map(n -> String.format("[%s] %s", n.getField(), n.getDefaultMessage()))
                 .reduce((x, y) -> String.format("%s; %s", x, y))
                 .orElse("参数输入有误");
         log.warn("参数校验异常：{}", msg);
-        return ResponseVO.failed(msg);
+        return ApiResponseVO.failed(msg);
     }
 
     /**
@@ -51,14 +51,14 @@ public class ValidationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     @ResponseBody
-    public ResponseVO methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+    public ApiResponseVO methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         String msg = e.getBindingResult().getFieldErrors()
                 .stream()
                 .map(n -> String.format("[%s] %s", n.getField(), n.getDefaultMessage()))
                 .reduce((x, y) -> String.format("%s; %s", x, y))
                 .orElse("参数输入有误");
         log.warn("参数校验异常：{}", msg);
-        return ResponseVO.failed(msg);
+        return ApiResponseVO.failed(msg);
     }
 
     /**
@@ -72,13 +72,13 @@ public class ValidationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = ConstraintViolationException.class)
     @ResponseBody
-    public ResponseVO constraintViolationExceptionHandler(ConstraintViolationException e) {
+    public ApiResponseVO constraintViolationExceptionHandler(ConstraintViolationException e) {
         String msg = e.getConstraintViolations()
                 .stream()
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.joining("; "));
         log.warn("参数校验异常：{}", msg);
-        return ResponseVO.failed(msg);
+        return ApiResponseVO.failed(msg);
     }
 
 }

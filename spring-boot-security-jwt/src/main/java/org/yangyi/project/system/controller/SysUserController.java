@@ -5,7 +5,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.yangyi.project.system.dto.UserSignupDTO;
 import org.yangyi.project.system.service.ISysUserService;
-import org.yangyi.project.web.ResponseVO;
+import org.yangyi.project.web.ApiResponseVO;
 
 @RestController
 @RequestMapping("/user")
@@ -19,14 +19,14 @@ public class SysUserController {
     }
 
     @PostMapping("/signup")
-    public ResponseVO signup(@Validated @RequestBody UserSignupDTO userSignupDTO) {
-        return ResponseVO.success(sysUserService.userSignup(userSignupDTO));
+    public ApiResponseVO signup(@Validated @RequestBody UserSignupDTO userSignupDTO) {
+        return ApiResponseVO.success(sysUserService.userSignup(userSignupDTO));
     }
 
     @PostMapping("/info")
-    public ResponseVO info(@RequestParam(required = false) String userId) {
+    public ApiResponseVO info(@RequestParam(required = false) String userId) {
         System.err.println(userId);
-        return ResponseVO.success(userId);
+        return ApiResponseVO.success(userId);
     }
 
 }
