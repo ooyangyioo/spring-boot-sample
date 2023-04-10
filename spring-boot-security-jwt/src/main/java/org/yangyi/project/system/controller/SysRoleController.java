@@ -26,7 +26,7 @@ public class SysRoleController {
     }
 
     @PostMapping("/list")
-    @PreAuthorize("hasPermission('/role/list', 'system:role:list')")
+    @PreAuthorize("hasPermission(null , 'system:role:list')")
     public ApiResponseVO list() {
         return null;
     }

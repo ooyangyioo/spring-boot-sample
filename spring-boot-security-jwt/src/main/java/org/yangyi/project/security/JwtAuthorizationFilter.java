@@ -13,8 +13,10 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.yangyi.project.system.po.SysMenu;
 import org.yangyi.project.system.po.SysRole;
 import org.yangyi.project.system.po.SysUser;
+import org.yangyi.project.system.service.ISysMenuService;
 import org.yangyi.project.system.service.ISysRoleService;
 import org.yangyi.project.system.service.ISysUserService;
 
@@ -37,14 +39,17 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final ISysUserService sysUserService;
     private final ISysRoleService sysRoleService;
+    private final ISysMenuService sysMenuService;
 
     @Autowired
     public JwtAuthorizationFilter(AuthenticationEntryPoint authenticationEntryPoint,
                                   ISysUserService sysUserService,
-                                  ISysRoleService sysRoleService) {
+                                  ISysRoleService sysRoleService,
+                                  ISysMenuService sysMenuService) {
         this.authenticationEntryPoint = authenticationEntryPoint;
         this.sysUserService = sysUserService;
         this.sysRoleService = sysRoleService;
+        this.sysMenuService = sysMenuService;
     }
 
     @Override
@@ -77,8 +82,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         SysUser sysUser = sysUserService.userByName(username);
         List<SysRole> sysRoles = sysRoleService.userRoles(sysUser.getUserId());
         Collection<UrlGrantedAuthority> authorities = new ArrayList<>();
+        List<String> perms = new ArrayList<>();
         sysRoles.forEach(sysRole -> {
-            authorities.add(new UrlGrantedAuthority(sysRole.getRoleKey()));
+            Long roleId = sysRole.getRoleId();
+            List<SysMenu> sysMenus = this.sysMenuService.selectRoleMenus(roleId);
+            sysMenus.forEach(sysMenu -> perms.add(sysMenu.getPerms()));
+            authorities.add(new UrlGrantedAuthority(sysRole.getRoleKey(), perms));
         });
         SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(sysUser, sysUser.getPassword(), authorities));
         filterChain.doFilter(request, response);

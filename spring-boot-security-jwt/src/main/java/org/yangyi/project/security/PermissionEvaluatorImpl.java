@@ -12,8 +12,12 @@ import org.springframework.util.AntPathMatcher;
 import org.yangyi.project.system.po.SysMenu;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * hasPermission()的注解会委托给PermissionEvaluator接口，而这个接口默认实现是DenyAllPermissionEvaluator
@@ -30,16 +34,24 @@ public class PermissionEvaluatorImpl implements PermissionEvaluator {
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
         LOGGER.info("请求：[{}]，需要权限：[{}]", targetDomainObject, permission);
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        List<String> permissionAll = new ArrayList<>();
         for (GrantedAuthority authority : authorities) {
-//            List<SysMenu> sysMenus = ((UrlGrantedAuthority) authority).getSysMenus();
-//            for (SysMenu sysMenu : sysMenus) {
-//                if (antPathMatcher.match(sysMenu.getMenuUrl(), (String) targetDomainObject) &&
-//                        (StringUtils.equals(sysMenu.getMenuTag(), (String) permission) ||
-//                                StringUtils.equals(sysMenu.getMenuTag(), "*")))
-//                    return true;
-//            }
+            List<String> permissions = ((UrlGrantedAuthority) authority).getPermissions();
+            permissionAll = Stream.of(permissionAll, permissions)
+                    .flatMap(Collection::stream)
+                    .distinct()
+                    .collect(Collectors.toList());
+            //  for (String perm : ((UrlGrantedAuthority) authority).getPermissions()) {
+            //      if (antPathMatcher.match(sysMenu.getMenuUrl(), (String) targetDomainObject) &&
+            //          (StringUtils.equals(sysMenu.getMenuTag(), (String) permission) ||
+            //              StringUtils.equals(sysMenu.getMenuTag(), "*")))
+            //              return true;
+            //  }
         }
-        return true;
+        Collections.sort(permissionAll);
+        if (permissionAll.contains(permission))
+            return true;
+        return false;
     }
 
     @Override

@@ -33,6 +33,7 @@ public class JdbcUserDetailsServiceImpl implements UserDetailsService {
         }
         if (Objects.isNull(sysUser))
             throw new UsernameNotFoundException("用户不存在");
+
         return new JwtUserDetails(sysUser.getUserName(), sysUser.getPassword(), Collections.emptyList());
     }
 
