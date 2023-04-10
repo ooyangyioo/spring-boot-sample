@@ -3,10 +3,7 @@ package org.yangyi.project.system.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.yangyi.project.system.dto.RoleAddDTO;
 import org.yangyi.project.system.service.ISysRoleService;
 import org.yangyi.project.web.ApiResponseVO;
@@ -29,6 +26,7 @@ public class SysRoleController {
     }
 
     @PostMapping("/list")
+    @PreAuthorize("hasPermission('/role/list', 'system:role:list')")
     public ApiResponseVO list() {
         return null;
     }
@@ -47,6 +45,11 @@ public class SysRoleController {
     @PostMapping("/remove")
     public ApiResponseVO remove() {
         return null;
+    }
+
+    @PostMapping("/remove/{userId}")
+    public ApiResponseVO userRoles(@PathVariable("userId") Long userId) {
+        return ApiResponseVO.success(this.sysRoleService.userRoles(userId));
     }
 
 }

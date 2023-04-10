@@ -1,7 +1,10 @@
 package org.yangyi.project.system.service;
 
 import org.yangyi.project.system.dto.RoleAddDTO;
+import org.yangyi.project.system.po.SysRole;
 import org.yangyi.project.system.po.SysRoleMenu;
+
+import java.util.List;
 
 public interface ISysRoleService {
 
@@ -17,4 +20,5 @@ public interface ISysRoleService {
 
     SysRoleMenu roleWithMenu(Long roleId);
 
+    List<SysRole> userRoles(Long userId);
 }

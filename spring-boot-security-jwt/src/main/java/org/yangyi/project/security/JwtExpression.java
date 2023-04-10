@@ -30,17 +30,16 @@ public class JwtExpression {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<UrlGrantedAuthority> urlGrantedAuthorities = (List<UrlGrantedAuthority>) authentication.getAuthorities();
         for (UrlGrantedAuthority urlGrantedAuthority : urlGrantedAuthorities) {
-            List<String> permissions = urlGrantedAuthority.getPermissions();
-            for (String permission : permissions) {
-                if (StringUtils.equals(permission, authority)) {
-                    return true;
-                }
-            }
+//            List<String> permissions = urlGrantedAuthority.getPermissions();
+//            for (String permission : permissions) {
+//                if (StringUtils.equals(permission, authority)) {
+//                    return true;
+//                }
+//            }
         }
 
         urlGrantedAuthorities.forEach(urlGrantedAuthority -> {
             System.err.println(urlGrantedAuthority.getAuthority());
-
         });
 
         return true;

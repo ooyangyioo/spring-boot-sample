@@ -11,5 +11,4 @@ public interface ISysUserService {
 
     SysUser userByName(String username);
 
-    SysUserRole userWithRole(String username);
 }

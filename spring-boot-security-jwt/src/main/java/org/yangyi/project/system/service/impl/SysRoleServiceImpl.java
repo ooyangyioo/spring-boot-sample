@@ -1,12 +1,15 @@
 package org.yangyi.project.system.service.impl;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.yangyi.project.system.dao.SysRoleMapper;
 import org.yangyi.project.system.dto.RoleAddDTO;
 import org.yangyi.project.system.po.SysRole;
 import org.yangyi.project.system.po.SysRoleMenu;
 import org.yangyi.project.system.service.ISysRoleService;
+
+import java.util.List;
 
 @Service
 public class SysRoleServiceImpl implements ISysRoleService {
@@ -48,4 +51,11 @@ public class SysRoleServiceImpl implements ISysRoleService {
     public SysRoleMenu roleWithMenu(Long roleId) {
         return this.sysRoleMapper.selectRoleWithMenu(roleId);
     }
+
+    @Override
+    @Cacheable(cacheNames = {"role"}, key = "#userId")
+    public List<SysRole> userRoles(Long userId) {
+        return sysRoleMapper.selectUserRoles(userId);
+    }
+
 }

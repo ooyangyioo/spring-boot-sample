@@ -35,10 +35,12 @@ public class RedisConfig {
 
         Set cacheNameSet = new HashSet() {{
             add("user");
+            add("role");
         }};
 
         ConcurrentHashMap cacheConfigMap = new ConcurrentHashMap();
         cacheConfigMap.put("user", redisCacheConfiguration.entryTtl(Duration.ofSeconds(7200)));    //  自定义有效期
+        cacheConfigMap.put("role", redisCacheConfiguration.entryTtl(Duration.ofSeconds(7200)));    //  自定义有效期
         //  cacheConfigMap.put("Test", redisCacheConfiguration);    //  永久有效
 
         RedisCacheManager cacheManager = RedisCacheManager

@@ -2,9 +2,10 @@ curl -X POST -H "Accept: application/json" -H "Content-type: application/json" '
 
 
 curl -X POST 'http://localhost:8080/user/login' --header "Content-Type: multipart/form-data" -F username=admin -F password=yangyi126
-curl -X POST 'http://localhost:8080/user/info?userId=167941641439678464' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2ODA1MTA2MzAsImV4cCI6MTY4MDU5NzAzMCwiaWF0IjoxNjgwNTEwNjMwLCJ1c2VybmFtZSI6ImFkbWluIn0.2OFm7MNR-sLKGBNalIFGDZ_zbfnL8Y-5pBNxo8h28n4'
+curl -X POST 'http://localhost:8080/user/info?userId=167941641439678464' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2ODEwOTY0OTIsImV4cCI6MTY4MTE4Mjg5MiwiaWF0IjoxNjgxMDk2NDkyLCJ1c2VybmFtZSI6ImFkbWluIn0.ctzTxIXbICLH6AvRRSsbbDbUmZk7p4r9wCc2U4ag0Ig'
 curl -X POST 'http://localhost:8080/user/delete?userId=167941641439678464' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2ODA1MTA2MzAsImV4cCI6MTY4MDU5NzAzMCwiaWF0IjoxNjgwNTEwNjMwLCJ1c2VybmFtZSI6ImFkbWluIn0.2OFm7MNR-sLKGBNalIFGDZ_zbfnL8Y-5pBNxo8h28n4'
 
+curl -X POST 'http://localhost:8080/role/list' -H "Accept: application/json" -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2ODEwOTY0OTIsImV4cCI6MTY4MTE4Mjg5MiwiaWF0IjoxNjgxMDk2NDkyLCJ1c2VybmFtZSI6ImFkbWluIn0.ctzTxIXbICLH6AvRRSsbbDbUmZk7p4r9wCc2U4ag0Ig'
 curl -X POST 'http://localhost:8080/role/add' -d '{"roleName":"超级管理员","roleKey":"admin","roleSort":1,"remark":"超级管理员"}' -H "Accept: application/json" -H "Content-type: application/json" -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NzcwNTMwODQsImV4cCI6MTY3NzEzOTQ4NCwiaWF0IjoxNjc3MDUzMDg0LCJ1c2VybmFtZSI6Inlhbmd5aSJ9.yeqymdssixpb1PYFdZSKzcp7CWqC3ld0yIaDGo444is'
 curl -X POST 'http://localhost:8080/role/query' -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NzcxMTk4OTIsImV4cCI6MTY3NzIwNjI5MiwiaWF0IjoxNjc3MTE5ODkyLCJ1c2VybmFtZSI6Inlhbmd5aSJ9.SLUHVrEYTWLtIoLf-pxAviUSZ1G9bkVLtQzSgaXJIr0'
 

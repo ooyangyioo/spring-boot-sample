@@ -45,15 +45,10 @@ public class SysUserServiceImpl implements ISysUserService {
     }
 
     @Override
+    @Cacheable(cacheNames = {"user"}, key = "#username")
     public SysUser userByName(String username) {
         SysUser sysUser = sysUserMapper.selectByUserName(username);
         return sysUser;
     }
 
-    @Override
-    @Cacheable(cacheNames = {"user"}, key = "#username")
-    public SysUserRole userWithRole(String username) {
-        SysUserRole sysUserRole = sysUserMapper.selectUserWithRoles(username);
-        return sysUserRole;
-    }
 }

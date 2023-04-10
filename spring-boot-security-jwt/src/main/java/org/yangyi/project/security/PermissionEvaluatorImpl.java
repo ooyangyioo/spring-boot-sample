@@ -29,8 +29,7 @@ public class PermissionEvaluatorImpl implements PermissionEvaluator {
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
         LOGGER.info("请求：[{}]，需要权限：[{}]", targetDomainObject, permission);
-        User user = (User) authentication.getPrincipal();
-        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority authority : authorities) {
 //            List<SysMenu> sysMenus = ((UrlGrantedAuthority) authority).getSysMenus();
 //            for (SysMenu sysMenu : sysMenus) {
