@@ -2,9 +2,11 @@ package org.yangyi.project.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.yangyi.project.system.dto.RoleAddDTO;
+import org.yangyi.project.system.po.SysUser;
 import org.yangyi.project.system.service.ISysRoleService;
 import org.yangyi.project.web.ApiResponseVO;
 
@@ -20,9 +22,10 @@ public class SysRoleController {
     }
 
     @PostMapping("/query")
-    @PreAuthorize("hasRole('admin')")
-    public ApiResponseVO query() {
-        return ApiResponseVO.success("query");
+    public ApiResponseVO query(@RequestParam(required = false) Long userId) {
+        if (null == userId)
+            userId = ((SysUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserId();
+        return ApiResponseVO.success(this.sysRoleService.userRoles(userId));
     }
 
     @PostMapping("/list")
@@ -43,13 +46,9 @@ public class SysRoleController {
     }
 
     @PostMapping("/remove")
+    @PreAuthorize("hasRole('admin') or hasPermission(null , 'system:role:list')")
     public ApiResponseVO remove() {
         return null;
-    }
-
-    @PostMapping("/remove/{userId}")
-    public ApiResponseVO userRoles(@PathVariable("userId") Long userId) {
-        return ApiResponseVO.success(this.sysRoleService.userRoles(userId));
     }
 
 }
