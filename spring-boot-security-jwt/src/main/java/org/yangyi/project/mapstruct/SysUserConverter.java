@@ -9,7 +9,7 @@ import org.yangyi.project.system.po.SysUser;
  */
 @Mapper(injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        componentModel = "spring",
+        componentModel = MappingConstants.ComponentModel.SPRING,
         uses = {PasswordEncoderFormatter.class})
 public interface SysUserConverter {
     @Mappings({
