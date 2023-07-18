@@ -36,7 +36,7 @@ public class RedisConfig {
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(stringRedisSerializer))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer()));
 
-        Set cacheNameSet = new HashSet() {{
+        Set<String> cacheNameSet = new HashSet() {{
             add("USERS");
         }};
 

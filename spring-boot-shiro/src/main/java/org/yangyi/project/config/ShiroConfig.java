@@ -26,7 +26,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.yangyi.project.shiro.*;
 
 import javax.servlet.Filter;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -35,21 +34,23 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
     private static final String LOGIN_URL = "/sys/user/login";
-
     private IgnorePathConfig ignorePathConfig;
-
     private static final String USERNAME_PARAM = "username";
     private static final String PASSWORD_PARAM = "password";
     private static final String REMEMBER_ME_PARAM = "remember";
     public static final String AUTHENTICATION_CACHE_NAME = "authentication";
     public static final String AUTHORIZATION_CACHE_NAME = "authorization";
 
-    @Autowired
     private RedisConnectionFactory redisConnectionFactory;
 
     @Autowired
     public void setIgnorePathConfig(IgnorePathConfig ignorePathConfig) {
         this.ignorePathConfig = ignorePathConfig;
+    }
+
+    @Autowired
+    public void setRedisConnectionFactory(RedisConnectionFactory redisConnectionFactory) {
+        this.redisConnectionFactory = redisConnectionFactory;
     }
 
     @Bean
