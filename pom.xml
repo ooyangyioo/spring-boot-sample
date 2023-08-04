@@ -15,6 +15,7 @@
         <module>spring-boot-security-jwt</module>
         <module>spring-boot-shiro-jwt</module>
         <module>spring-boot-shiro</module>
+        <module>spring-boot-batch</module>
     </modules>
 
     <properties>
@@ -27,7 +28,7 @@
         <mybatis-spring-boot-starter.version>2.3.1</mybatis-spring-boot-starter.version>
         <pagehelper-spring-boot-starter.version>1.4.6</pagehelper-spring-boot-starter.version>
         <mybatis-generator-maven-plugin.version>1.4.2</mybatis-generator-maven-plugin.version>
-        <shiro-spring-boot-starter.version>1.11.0</shiro-spring-boot-starter.version>
+        <shiro-spring-boot-starter.version>1.12.0</shiro-spring-boot-starter.version>
         <seata-spring-boot-starter.version>1.6.1</seata-spring-boot-starter.version>
         <mysql.version>8.0.33</mysql.version>
     </properties>
@@ -89,6 +90,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.0</version>
         </dependency>
     </dependencies>
 

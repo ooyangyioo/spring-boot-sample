@@ -8,7 +8,9 @@ import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -36,7 +38,9 @@ public class ExtraEnvironmentPostProcessor implements EnvironmentPostProcessor {
             throw new IllegalArgumentException("配置文件 [" + resource.getFilename() + "] 不存在");
         }
         try {
-            properties.load(resource.getInputStream());
+            //  防止中文乱码
+            BufferedReader bf = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+            properties.load(bf);
             return new PropertiesPropertySource(Objects.requireNonNull(resource.getFilename()), properties);
         } catch (IOException ex) {
             throw new IllegalStateException("加载配置文件失败" + resource, ex);
