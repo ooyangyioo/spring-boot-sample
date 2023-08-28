@@ -17,6 +17,7 @@
         <commons-pool2.version>2.11.1</commons-pool2.version>
         <reflections.version>0.10.2</reflections.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <jasypt.version>3.0.5</jasypt.version>
     </properties>
 
     <dependencies>
@@ -53,6 +54,12 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>${jasypt.version}</version>
         </dependency>
 
         <dependency>

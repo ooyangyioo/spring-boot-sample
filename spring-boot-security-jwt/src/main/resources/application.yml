@@ -20,4 +20,9 @@ logging:
   config: classpath:log4j2.xml
 #  level:
 #    { org.yangyi.project.system.dao: debug, com.bosideng.advert.api.feignUtils: debug }
-
+jasypt:
+  encryptor:
+    password: yangyi126
+    property:
+      prefix: "ENC("
+      suffix: ")"
