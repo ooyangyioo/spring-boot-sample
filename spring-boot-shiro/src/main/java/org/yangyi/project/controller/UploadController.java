@@ -1,6 +1,5 @@
 package org.yangyi.project.controller;
 
-import com.alibaba.fastjson.JSON;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,10 +17,6 @@ public class UploadController {
     @PostMapping(value = {"/image"})
     public ResponseEntity image(@RequestPart("info") UploadBO info,
                                 @RequestPart("file") MultipartFile file) {
-
-        System.err.println(JSON.toJSONString(info));
-        System.err.println(file.getName());
-
         return ResponseEntity.ok(null);
     }
 

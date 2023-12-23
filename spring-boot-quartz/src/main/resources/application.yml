@@ -3,8 +3,3 @@ server:
 spring:
   profiles:
     active: mysql
-springdoc:
-  api-docs:
-    enabled: true
-  swagger-ui:
-    enabled: true

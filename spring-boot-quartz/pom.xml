@@ -12,8 +12,8 @@
     <artifactId>spring-boot-quartz</artifactId>
 
     <properties>
-        <postgresql.version>42.3.6</postgresql.version>
-        <easyexcel.version>3.1.1</easyexcel.version>
+        <postgresql.version>42.7.1</postgresql.version>
+        <easyexcel.version>3.3.3</easyexcel.version>
     </properties>
 
     <dependencies>
@@ -51,13 +51,11 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
-            <version>${easyexcel.version}</version>
         </dependency>
 
     </dependencies>

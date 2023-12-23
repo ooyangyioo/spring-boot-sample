@@ -13,7 +13,6 @@
     <artifactId>spring-boot-batch</artifactId>
 
     <properties>
-        <mapstruct.version>1.5.5.Final</mapstruct.version>
     </properties>
 
     <dependencies>
@@ -40,7 +39,6 @@
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
         </dependency>
 
     </dependencies>
@@ -76,11 +74,11 @@
                         </path>
                     </annotationProcessorPaths>
                     <showWarnings>true</showWarnings>
-                    <compilerArgs>
-                        <compilerArg>
-                            -Amapstruct.verbose=true
-                        </compilerArg>
-                    </compilerArgs>
+<!--                    <compilerArgs>-->
+<!--                        <compilerArg>-->
+<!--                            -Amapstruct.verbose=true-->
+<!--                        </compilerArg>-->
+<!--                    </compilerArgs>-->
                 </configuration>
             </plugin>
         </plugins>
