@@ -41,7 +41,7 @@
         <postgresql.version>42.7.1</postgresql.version>
         <easyexcel.version>3.3.3</easyexcel.version>
         <jasypt.version>3.0.5</jasypt.version>
-        <feign.version>13.1</feign.version>
+        <feign.version>13.2</feign.version>
 
         <maven-clean-plugin.version>3.3.2</maven-clean-plugin.version>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>

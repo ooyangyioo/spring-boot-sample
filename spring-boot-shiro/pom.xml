@@ -14,21 +14,6 @@
     <properties>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>OSGeo</id>
-            <name>OSGeo</name>
-            <url>https://repo.osgeo.org/repository/release/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -117,13 +102,6 @@
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
             <version>0.10.2</version>
-        </dependency>
-
-        <!-- 处理地理空间数据 -->
-        <dependency>
-            <groupId>org.geotools</groupId>
-            <artifactId>gt-referencing</artifactId>
-            <version>27.2</version>
         </dependency>
 
     </dependencies>

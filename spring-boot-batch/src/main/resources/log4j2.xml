@@ -13,6 +13,8 @@
     </Appenders>
 
     <Loggers>
+        <logger name="org.yangyi.project.feign" level="DEBUG"/>
+
         <Root level="INFO">
             <AppenderRef ref="ConsoleAppender"/>
         </Root>
