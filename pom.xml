@@ -16,6 +16,8 @@
         <module>spring-boot-shiro-jwt</module>
         <module>spring-boot-shiro</module>
         <module>spring-boot-batch</module>
+        <module>spring-boot-netty</module>
+        <module>spring-boot-mina</module>
     </modules>
 
     <properties>
