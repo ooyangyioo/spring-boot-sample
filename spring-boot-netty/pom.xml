@@ -12,7 +12,7 @@
     <artifactId>spring-boot-netty</artifactId>
 
     <properties>
-        <netty.version>4.1.111.Final</netty.version>
+        <netty.version>4.1.112.Final</netty.version>
     </properties>
 
     <dependencies>
