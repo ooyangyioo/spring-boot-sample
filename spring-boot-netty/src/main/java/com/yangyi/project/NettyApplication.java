@@ -21,6 +21,7 @@ public class NettyApplication implements ApplicationListener<ApplicationReadyEve
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
+        System.err.println(event.toString());
         nettyServer.start();
     }
 }

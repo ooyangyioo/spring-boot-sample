@@ -1,0 +1,16 @@
+spring:
+  mvc:
+    log-request-details: true
+    throw-exception-if-no-handler-found: true # 是否抛异常
+    static-path-pattern: /static/** # 静态资源的请求模式
+  web:
+    resources:
+      add-mappings: true # 静态资源映射
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 1
+    password: yangyi126
+    jedis:
+      pool:
+        enabled: true
